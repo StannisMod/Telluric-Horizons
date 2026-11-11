@@ -1,5 +1,5 @@
 PYTHON ?= python3
-.PHONY: build lint test package check-generated check-game
+.PHONY: build lint test package check-generated check-game smoke smoke-tests
 build:
 	$(PYTHON) tools/build.py build
 lint:
@@ -12,3 +12,7 @@ check-generated:
 	$(PYTHON) tools/build.py check-generated
 check-game:
 	$(PYTHON) tools/build.py check-game
+smoke:
+	$(PYTHON) tools/smoke_game.py
+smoke-tests:
+	$(PYTHON) tools/smoke_game.py --with-tests

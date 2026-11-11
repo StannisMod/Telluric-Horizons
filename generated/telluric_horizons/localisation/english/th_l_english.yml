@@ -1,3 +1,11 @@
 ﻿l_english:
- th_eligible:0 "Requires a surveyed, uncolonized world inside your borders, within the configured size range, with no anomaly, archaeological site, protected story status or megastructure in the system. Size is a gameplay filter, not gravity."
+ th_borders:0 "The world must be inside your borders."
+ th_deposits:0 "Special or unknown deposits require a dedicated preservation rule."
+ th_eligible:0 "Requires a surveyed uncolonized world inside your borders, allowed size, no anomaly, archaeology, protected story status, attached megastructure or special/unknown deposit. Ordinary orbital deposits use native terraforming rules; no extra resource grants."
+ th_investigation:0 "Anomalies and archaeological sites must be absent."
+ th_megastructure:0 "No megastructure may be attached to this world; gateways elsewhere in the system are allowed."
+ th_size:0 "Allowed size: 10–40 (gameplay filter, not gravity)."
+ th_story:0 "Protected, sacred and listed story worlds are excluded."
+ th_surveyed:0 "The world must be surveyed."
  th_title:0 "Telluric Horizons — Planetary Engineering"
+ th_uncolonized:0 "Engineering requires an uncolonized world."

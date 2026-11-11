@@ -1,13 +1,13 @@
 {
-  "schema_version": 1,
-  "version": "0.2.0-dev",
+  "schema_version": 2,
+  "version": "0.3.0-dev",
   "target_game": "4.5.4",
   "target_checksum": "1b4f",
   "days_per_year": 360,
   "defaults": {
     "min_size_proxy": 10,
     "max_size_proxy": 40,
-    "ai_enabled": false,
+    "ai_enabled": true,
     "climate_groups": {
       "pc_desert": "dry",
       "pc_arid": "dry",
@@ -33,31 +33,68 @@
       "pc_barren": {
         "modifier": "terraforming_candidate",
         "targets": "all",
-        "aquatic_only": false
+        "aquatic_only": false,
+        "detox_only": false
       },
       "pc_barren_cold": {
         "modifier": "terraforming_candidate",
         "targets": "all",
-        "aquatic_only": false
+        "aquatic_only": false,
+        "detox_only": false
       },
       "pc_toxic": {
         "modifier": "toxic_terraforming_candidate",
         "targets": "all",
-        "aquatic_only": false
+        "aquatic_only": false,
+        "detox_only": true
       },
       "pc_frozen": {
         "modifier": "frozen_terraforming_candidate",
         "targets": [
           "pc_ocean"
         ],
-        "aquatic_only": true
+        "aquatic_only": true,
+        "detox_only": false
       }
     },
     "protected_planet_flags": [
       "th_protected",
       "precursor_world",
       "terraform_nucleus_transfixed",
-      "planet_earth"
+      "planet_earth",
+      "megastructure",
+      "has_megastructure",
+      "living_planet",
+      "hoard_planet",
+      "hatchling_egg",
+      "phaseshifting_active",
+      "is_time_loop_world",
+      "czyrni_planet",
+      "ratling_planet",
+      "graveyard_gas",
+      "graveyard_site",
+      "ignore_startup_effect",
+      "reinforcement_fleet_spawn_point",
+      "salvager_enclave_planet",
+      "frozen_in_time_flag",
+      "utopian_planet",
+      "ancient_history_planet",
+      "crisis_vital_planet",
+      "destroyed_by_colossus",
+      "planet_cracked",
+      "pheromonefrenzy_reviving",
+      "previously_infested",
+      "shroud_storm_changed",
+      "stellarite_terraformed",
+      "massex_1_planet",
+      "massex_2_planet",
+      "massex_3_planet",
+      "massex_4_planet",
+      "massex_5_planet",
+      "machine_world_1",
+      "machine_world_2",
+      "machine_world_3",
+      "machine_world_4"
     ],
     "protected_star_flags": [
       "precursor_system",
@@ -72,6 +109,120 @@
     ],
     "protected_modifiers": [
       "consecrated_world"
+    ],
+    "ai_policy": {
+      "cost_multiple": 2,
+      "reserve": {
+        "energy": 10000,
+        "biomass": 5000
+      },
+      "min_income": {
+        "energy": 100,
+        "biomass": 50
+      },
+      "min_colonies": 3
+    },
+    "economy": {
+      "hydrocentric_ocean_factor": [
+        3,
+        4
+      ],
+      "biomass_factor": [
+        1,
+        2
+      ],
+      "parent_cost_factors": [
+        [
+          1,
+          1
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "income_scenarios": [
+        {
+          "label": "early_reference",
+          "monthly_energy": 50
+        },
+        {
+          "label": "mid_reference",
+          "monthly_energy": 200
+        },
+        {
+          "label": "late_reference",
+          "monthly_energy": 500
+        }
+      ]
+    },
+    "supported_deposits": [
+      "d_minerals_1",
+      "d_minerals_2",
+      "d_minerals_3",
+      "d_minerals_4",
+      "d_minerals_5",
+      "d_minerals_6",
+      "d_minerals_7",
+      "d_minerals_8",
+      "d_minerals_9",
+      "d_minerals_10",
+      "d_energy_1",
+      "d_energy_2",
+      "d_energy_3",
+      "d_energy_4",
+      "d_energy_5",
+      "d_energy_6",
+      "d_energy_7",
+      "d_energy_8",
+      "d_energy_9",
+      "d_energy_10",
+      "d_society_1",
+      "d_society_2",
+      "d_society_3",
+      "d_society_4",
+      "d_society_5",
+      "d_society_6",
+      "d_society_7",
+      "d_society_8",
+      "d_society_9",
+      "d_society_10",
+      "d_physics_1",
+      "d_physics_2",
+      "d_physics_3",
+      "d_physics_4",
+      "d_physics_5",
+      "d_physics_6",
+      "d_physics_7",
+      "d_physics_8",
+      "d_physics_9",
+      "d_physics_10",
+      "d_engineering_1",
+      "d_engineering_2",
+      "d_engineering_3",
+      "d_engineering_4",
+      "d_engineering_5",
+      "d_engineering_6",
+      "d_engineering_7",
+      "d_engineering_8",
+      "d_engineering_9",
+      "d_engineering_10",
+      "d_society_15"
+    ],
+    "reviewed_unprotected_flags": [
+      "toxic_terraforming_candidate"
     ]
   },
   "classes": {
@@ -241,7 +392,7 @@
       "atmosphere": "special",
       "water": "unknown",
       "biosphere": "special",
-      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+      "reason": "Preserve special, story and DLC mechanics; class presence audited against 4.5.4"
     },
     "pc_gaia": {
       "policy": "vanilla",
@@ -249,7 +400,7 @@
       "atmosphere": "special",
       "water": "unknown",
       "biosphere": "special",
-      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+      "reason": "Preserve special, story and DLC mechanics; class presence audited against 4.5.4"
     },
     "pc_relic": {
       "policy": "vanilla",
@@ -257,7 +408,7 @@
       "atmosphere": "special",
       "water": "unknown",
       "biosphere": "special",
-      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+      "reason": "Preserve special, story and DLC mechanics; class presence audited against 4.5.4"
     },
     "pc_city": {
       "policy": "vanilla",
@@ -265,7 +416,7 @@
       "atmosphere": "special",
       "water": "unknown",
       "biosphere": "special",
-      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+      "reason": "Preserve special, story and DLC mechanics; class presence audited against 4.5.4"
     },
     "pc_hive": {
       "policy": "vanilla",
@@ -273,7 +424,7 @@
       "atmosphere": "special",
       "water": "unknown",
       "biosphere": "special",
-      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+      "reason": "Preserve special, story and DLC mechanics; class presence audited against 4.5.4"
     },
     "pc_machine": {
       "policy": "vanilla",
@@ -281,7 +432,7 @@
       "atmosphere": "special",
       "water": "unknown",
       "biosphere": "special",
-      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+      "reason": "Preserve special, story and DLC mechanics; class presence audited against 4.5.4"
     },
     "pc_ringworld_habitable": {
       "policy": "vanilla",
@@ -289,7 +440,7 @@
       "atmosphere": "special",
       "water": "unknown",
       "biosphere": "special",
-      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+      "reason": "Preserve special, story and DLC mechanics; class presence audited against 4.5.4"
     },
     "pc_habitat": {
       "policy": "vanilla",
@@ -297,7 +448,7 @@
       "atmosphere": "special",
       "water": "unknown",
       "biosphere": "special",
-      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+      "reason": "Preserve special, story and DLC mechanics; class presence audited against 4.5.4"
     },
     "pc_shrouded": {
       "policy": "vanilla",
@@ -305,7 +456,7 @@
       "atmosphere": "special",
       "water": "unknown",
       "biosphere": "special",
-      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+      "reason": "Preserve special, story and DLC mechanics; class presence audited against 4.5.4"
     },
     "pc_volcanic": {
       "policy": "vanilla",
@@ -313,7 +464,7 @@
       "atmosphere": "special",
       "water": "unknown",
       "biosphere": "special",
-      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+      "reason": "Preserve special, story and DLC mechanics; class presence audited against 4.5.4"
     },
     "pc_machine_broken": {
       "policy": "forbidden",
@@ -638,8 +789,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -651,8 +802,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -664,8 +815,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -677,8 +828,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -690,8 +841,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -703,8 +854,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -716,8 +867,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -729,8 +880,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -742,8 +893,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -755,8 +906,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -768,8 +919,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -781,8 +932,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -794,8 +945,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -807,8 +958,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -820,8 +971,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -833,8 +984,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -846,8 +997,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -859,8 +1010,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -872,8 +1023,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -885,8 +1036,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -898,8 +1049,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -911,8 +1062,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -924,8 +1075,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -937,8 +1088,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -950,8 +1101,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -963,8 +1114,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -976,8 +1127,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -989,8 +1140,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -1002,8 +1153,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -1015,8 +1166,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -1028,8 +1179,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -1041,8 +1192,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -1054,8 +1205,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -1067,8 +1218,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -1080,8 +1231,8 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     },
     {
@@ -1093,19 +1244,51 @@
       "technologies": [
         "tech_climate_restoration"
       ],
-      "ai_weight": 0,
-      "features": "engine_default_unverified",
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
     }
   ],
   "localization": {
     "th_eligible": {
-      "english": "Requires a surveyed, uncolonized world inside your borders, within the configured size range, with no anomaly, archaeological site, protected story status or megastructure in the system. Size is a gameplay filter, not gravity.",
-      "russian": "Требуется изученный незаселённый мир в ваших границах, допустимого размера, без аномалии, археологии, защищённого сюжетного статуса и мегасооружений в системе. Размер — игровой фильтр, а не гравитация."
+      "english": "Requires a surveyed uncolonized world inside your borders, allowed size, no anomaly, archaeology, protected story status, attached megastructure or special/unknown deposit. Ordinary orbital deposits use native terraforming rules; no extra resource grants.",
+      "russian": "Требуется изученный незаселённый мир в ваших границах, допустимого размера, без аномалии, археологии, защищённого сюжета, прикреплённого мегасооружения и особых/неизвестных месторождений. Обычные орбитальные месторождения обрабатываются штатным терраформированием; дополнительных ресурсов мод не выдаёт."
     },
     "th_title": {
       "english": "Telluric Horizons — Planetary Engineering",
       "russian": "Telluric Horizons — Планетарная инженерия"
+    },
+    "th_surveyed": {
+      "english": "The world must be surveyed.",
+      "russian": "Мир должен быть полностью изучен."
+    },
+    "th_borders": {
+      "english": "The world must be inside your borders.",
+      "russian": "Мир должен находиться в ваших границах."
+    },
+    "th_uncolonized": {
+      "english": "Engineering requires an uncolonized world.",
+      "russian": "Для инженерии требуется незаселённый мир."
+    },
+    "th_size": {
+      "english": "Allowed size: $TH_MIN_SIZE$–$TH_MAX_SIZE$ (gameplay filter, not gravity).",
+      "russian": "Допустимый размер: $TH_MIN_SIZE$–$TH_MAX_SIZE$ (игровой фильтр, не гравитация)."
+    },
+    "th_investigation": {
+      "english": "Anomalies and archaeological sites must be absent.",
+      "russian": "На мире не должно быть аномалий и археологических объектов."
+    },
+    "th_story": {
+      "english": "Protected, sacred and listed story worlds are excluded.",
+      "russian": "Защищённые, священные и перечисленные сюжетные миры исключены."
+    },
+    "th_deposits": {
+      "english": "Special or unknown deposits require a dedicated preservation rule.",
+      "russian": "Для особых или неизвестных месторождений требуется отдельное правило сохранения."
+    },
+    "th_megastructure": {
+      "english": "No megastructure may be attached to this world; gateways elsewhere in the system are allowed.",
+      "russian": "К этому миру не должно быть прикреплено мегасооружение; врата в другой части системы допустимы."
     }
   }
 }

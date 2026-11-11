@@ -1,0 +1,42 @@
+# toxic_to_arctic
+terraform_link = {
+    from = pc_toxic
+    to = pc_arctic
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 35000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 31250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 17500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 15625
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
+    duration = 18000
+    potential = {
+        exists = owner
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate }
+            OR = { has_ascension_perk = ap_detox has_country_flag = knights_detox } } }
+    }
+    condition = {
+        has_technology = tech_climate_restoration
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 80000 BIOMASS = 40000 } }
+    }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 80000 BIOMASS = 40000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
+    } }
+}

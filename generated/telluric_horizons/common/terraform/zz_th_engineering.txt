@@ -3,748 +3,1478 @@
 terraform_link = {
     from = pc_barren_cold
     to = pc_alpine
-    resources = { category = terraforming cost = { energy = 18000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 18000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 18000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 9000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 9000
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 10440
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 46000 BIOMASS = 23000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 46000 BIOMASS = 23000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_cold_to_arctic
 terraform_link = {
     from = pc_barren_cold
     to = pc_arctic
-    resources = { category = terraforming cost = { energy = 16000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 16000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 16000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 8000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 8000
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 8640
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 42000 BIOMASS = 21000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 42000 BIOMASS = 21000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_cold_to_arid
 terraform_link = {
     from = pc_barren_cold
     to = pc_arid
-    resources = { category = terraforming cost = { energy = 21000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 21000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 20750
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 10500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 10375
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 12240
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 52000 BIOMASS = 26000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 52000 BIOMASS = 26000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_cold_to_continental
 terraform_link = {
     from = pc_barren_cold
     to = pc_continental
-    resources = { category = terraforming cost = { energy = 21000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 21000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 17750
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 10500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 8875
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 12240
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 52000 BIOMASS = 26000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 52000 BIOMASS = 26000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_cold_to_desert
 terraform_link = {
     from = pc_barren_cold
     to = pc_desert
-    resources = { category = terraforming cost = { energy = 21000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 21000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 20750
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 10500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 10375
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 12240
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 52000 BIOMASS = 26000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 52000 BIOMASS = 26000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_cold_to_ocean
 terraform_link = {
     from = pc_barren_cold
     to = pc_ocean
-    resources = { category = terraforming_ocean cost = { energy = 21000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 21000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 15750
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 10500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 7875
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 12240
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 52000 BIOMASS = 26000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 52000 BIOMASS = 26000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_cold_to_savannah
 terraform_link = {
     from = pc_barren_cold
     to = pc_savannah
-    resources = { category = terraforming cost = { energy = 21000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 21000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 20750
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 10500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 10375
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 12240
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 52000 BIOMASS = 26000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 52000 BIOMASS = 26000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_cold_to_tropical
 terraform_link = {
     from = pc_barren_cold
     to = pc_tropical
-    resources = { category = terraforming cost = { energy = 21000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 21000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 17750
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 10500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 8875
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 12240
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 52000 BIOMASS = 26000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 52000 BIOMASS = 26000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_cold_to_tundra
 terraform_link = {
     from = pc_barren_cold
     to = pc_tundra
-    resources = { category = terraforming cost = { energy = 18000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 18000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 18000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 9000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 9000
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 10440
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 46000 BIOMASS = 23000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 46000 BIOMASS = 23000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_to_alpine
 terraform_link = {
     from = pc_barren
     to = pc_alpine
-    resources = { category = terraforming cost = { energy = 19000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 19000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 19000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 9500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 9500
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 10800
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 48000 BIOMASS = 24000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 48000 BIOMASS = 24000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_to_arctic
 terraform_link = {
     from = pc_barren
     to = pc_arctic
-    resources = { category = terraforming cost = { energy = 19000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 19000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 19000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 9500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 9500
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 10800
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 48000 BIOMASS = 24000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 48000 BIOMASS = 24000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_to_arid
 terraform_link = {
     from = pc_barren
     to = pc_arid
-    resources = { category = terraforming cost = { energy = 16000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 16000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 16000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 8000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 8000
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 9000
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 42000 BIOMASS = 21000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 42000 BIOMASS = 21000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_to_continental
 terraform_link = {
     from = pc_barren
     to = pc_continental
-    resources = { category = terraforming cost = { energy = 19000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 19000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 16250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 9500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 8125
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 10800
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 48000 BIOMASS = 24000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 48000 BIOMASS = 24000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_to_desert
 terraform_link = {
     from = pc_barren
     to = pc_desert
-    resources = { category = terraforming cost = { energy = 14000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 14000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 14000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 7000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 7000
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 7200
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 38000 BIOMASS = 19000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 38000 BIOMASS = 19000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_to_ocean
 terraform_link = {
     from = pc_barren
     to = pc_ocean
-    resources = { category = terraforming_ocean cost = { energy = 19000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 19000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 14250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 9500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 7125
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 10800
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 48000 BIOMASS = 24000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 48000 BIOMASS = 24000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_to_savannah
 terraform_link = {
     from = pc_barren
     to = pc_savannah
-    resources = { category = terraforming cost = { energy = 16000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 16000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 16000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 8000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 8000
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 9000
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 42000 BIOMASS = 21000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 42000 BIOMASS = 21000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_to_tropical
 terraform_link = {
     from = pc_barren
     to = pc_tropical
-    resources = { category = terraforming cost = { energy = 19000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 19000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 16250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 9500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 8125
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 10800
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 48000 BIOMASS = 24000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 48000 BIOMASS = 24000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # barren_to_tundra
 terraform_link = {
     from = pc_barren
     to = pc_tundra
-    resources = { category = terraforming cost = { energy = 19000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 19000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 19000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 9500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 9500
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 10800
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 48000 BIOMASS = 24000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 48000 BIOMASS = 24000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
 }
 # frozen_to_alpine
 terraform_link = {
     from = pc_frozen
     to = pc_alpine
-    resources = { category = terraforming cost = { energy = 12000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 12000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 12000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 6000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 6000
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 7200
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 34000 BIOMASS = 17000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 34000 BIOMASS = 17000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
+    } }
 }
 # frozen_to_arctic
 terraform_link = {
     from = pc_frozen
     to = pc_arctic
-    resources = { category = terraforming cost = { energy = 10000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 10000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 10000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 5000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 5000
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 5400
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 30000 BIOMASS = 15000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 30000 BIOMASS = 15000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
+    } }
 }
 # frozen_to_arid
 terraform_link = {
     from = pc_frozen
     to = pc_arid
-    resources = { category = terraforming cost = { energy = 15000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 15000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 15000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 7500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 7500
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 9000
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 40000 BIOMASS = 20000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 40000 BIOMASS = 20000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
+    } }
 }
 # frozen_to_continental
 terraform_link = {
     from = pc_frozen
     to = pc_continental
-    resources = { category = terraforming cost = { energy = 15000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 15000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 13250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 7500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 6625
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 9000
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 40000 BIOMASS = 20000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 40000 BIOMASS = 20000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
+    } }
 }
 # frozen_to_desert
 terraform_link = {
     from = pc_frozen
     to = pc_desert
-    resources = { category = terraforming cost = { energy = 15000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 15000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 15000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 7500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 7500
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 9000
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 40000 BIOMASS = 20000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 40000 BIOMASS = 20000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
+    } }
 }
 # frozen_to_ocean
 terraform_link = {
     from = pc_frozen
     to = pc_ocean
-    resources = { category = terraforming_ocean cost = { energy = 15000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 15000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 11250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 7500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 5625
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 9000
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
         NOT = { AND = { from = { has_modifier = frozen_terraforming_candidate }
-            OR = { has_aquatic_trait = yes has_trait = trait_robot_aquatic } } }
+            OR = { has_aquatic_trait = yes has_trait = trait_robot_aquatic }
+            has_ascension_perk = ap_hydrocentric } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 40000 BIOMASS = 20000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 40000 BIOMASS = 20000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
+    } }
 }
 # frozen_to_savannah
 terraform_link = {
     from = pc_frozen
     to = pc_savannah
-    resources = { category = terraforming cost = { energy = 15000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 15000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 15000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 7500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 7500
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 9000
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 40000 BIOMASS = 20000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 40000 BIOMASS = 20000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
+    } }
 }
 # frozen_to_tropical
 terraform_link = {
     from = pc_frozen
     to = pc_tropical
-    resources = { category = terraforming cost = { energy = 15000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 15000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 13250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 7500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 6625
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 9000
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 40000 BIOMASS = 20000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 40000 BIOMASS = 20000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
+    } }
 }
 # frozen_to_tundra
 terraform_link = {
     from = pc_frozen
     to = pc_tundra
-    resources = { category = terraforming cost = { energy = 12000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 12000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 12000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 6000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 6000
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 7200
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 34000 BIOMASS = 17000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 34000 BIOMASS = 17000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
+    } }
 }
 # toxic_to_alpine
 terraform_link = {
     from = pc_toxic
     to = pc_alpine
-    resources = { category = terraforming cost = { energy = 35000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 35000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 31250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 17500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 15625
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 18000
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
-        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate }
+            OR = { has_ascension_perk = ap_detox has_country_flag = knights_detox } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 80000 BIOMASS = 40000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 80000 BIOMASS = 40000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
+    } }
 }
 # toxic_to_arctic
 terraform_link = {
     from = pc_toxic
     to = pc_arctic
-    resources = { category = terraforming cost = { energy = 35000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 35000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 31250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 17500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 15625
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 18000
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
-        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate }
+            OR = { has_ascension_perk = ap_detox has_country_flag = knights_detox } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 80000 BIOMASS = 40000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 80000 BIOMASS = 40000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
+    } }
 }
 # toxic_to_arid
 terraform_link = {
     from = pc_toxic
     to = pc_arid
-    resources = { category = terraforming cost = { energy = 32000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 32000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 31250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 16000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 15625
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 16200
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
-        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate }
+            OR = { has_ascension_perk = ap_detox has_country_flag = knights_detox } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 74000 BIOMASS = 37000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 74000 BIOMASS = 37000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
+    } }
 }
 # toxic_to_continental
 terraform_link = {
     from = pc_toxic
     to = pc_continental
-    resources = { category = terraforming cost = { energy = 35000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 35000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 28250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 17500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 14125
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 18000
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
-        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate }
+            OR = { has_ascension_perk = ap_detox has_country_flag = knights_detox } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 80000 BIOMASS = 40000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 80000 BIOMASS = 40000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
+    } }
 }
 # toxic_to_desert
 terraform_link = {
     from = pc_toxic
     to = pc_desert
-    resources = { category = terraforming cost = { energy = 30000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 30000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 30000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 15000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 15000
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 14400
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
-        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate }
+            OR = { has_ascension_perk = ap_detox has_country_flag = knights_detox } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 70000 BIOMASS = 35000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 70000 BIOMASS = 35000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
+    } }
 }
 # toxic_to_ocean
 terraform_link = {
     from = pc_toxic
     to = pc_ocean
-    resources = { category = terraforming_ocean cost = { energy = 35000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 35000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 26250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 17500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 13125
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 18000
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
-        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate }
+            OR = { has_ascension_perk = ap_detox has_country_flag = knights_detox } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 80000 BIOMASS = 40000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 80000 BIOMASS = 40000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
+    } }
 }
 # toxic_to_savannah
 terraform_link = {
     from = pc_toxic
     to = pc_savannah
-    resources = { category = terraforming cost = { energy = 32000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 32000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 31250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 16000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 15625
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 16200
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
-        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate }
+            OR = { has_ascension_perk = ap_detox has_country_flag = knights_detox } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 74000 BIOMASS = 37000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 74000 BIOMASS = 37000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
+    } }
 }
 # toxic_to_tropical
 terraform_link = {
     from = pc_toxic
     to = pc_tropical
-    resources = { category = terraforming cost = { energy = 35000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 35000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 28250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 17500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 14125
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 18000
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
-        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate }
+            OR = { has_ascension_perk = ap_detox has_country_flag = knights_detox } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 80000 BIOMASS = 40000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 80000 BIOMASS = 40000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
+    } }
 }
 # toxic_to_tundra
 terraform_link = {
     from = pc_toxic
     to = pc_tundra
-    resources = { category = terraforming cost = { energy = 35000 } }
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 35000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 31250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 17500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 15625
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
     duration = 18000
     potential = {
-        is_ai = no
         exists = owner
-        is_wilderness_empire = no
-        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate }
+            OR = { has_ascension_perk = ap_detox has_country_flag = knights_detox } } }
     }
     condition = {
         has_technology = tech_climate_restoration
-        custom_tooltip = {
-            fail_text = th_eligible
-            from = { th_eligible_world = yes }
-        }
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 80000 BIOMASS = 40000 } }
     }
-    ai_weight = { weight = 0 }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 80000 BIOMASS = 40000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
+    } }
 }

@@ -1,0 +1,514 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:telluric-horizons:model:2",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 2
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[a-z0-9]+)?$"
+    },
+    "target_game": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "target_checksum": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{4}$"
+    },
+    "days_per_year": {
+      "type": "integer",
+      "const": 360
+    },
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "min_size_proxy": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_size_proxy": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "ai_enabled": {
+          "type": "boolean"
+        },
+        "climate_groups": {
+          "type": "object",
+          "patternProperties": {
+            "^pc_[a-z0-9_]+$": {
+              "enum": [
+                "cold",
+                "dry",
+                "wet"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1
+        },
+        "climate_costs": {
+          "type": "object",
+          "properties": {
+            "same_group": {
+              "type": "object",
+              "properties": {
+                "energy": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "days": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "energy",
+                "days"
+              ],
+              "additionalProperties": false
+            },
+            "cross_group": {
+              "type": "object",
+              "properties": {
+                "energy": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "days": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "energy",
+                "days"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "same_group",
+            "cross_group"
+          ],
+          "additionalProperties": false
+        },
+        "candidate_handoffs": {
+          "type": "object",
+          "patternProperties": {
+            "^pc_[a-z0-9_]+$": {
+              "type": "object",
+              "properties": {
+                "modifier": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9_]*$"
+                },
+                "targets": {
+                  "anyOf": [
+                    {
+                      "enum": [
+                        "all"
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "pattern": "^pc_[a-z0-9_]+$"
+                      },
+                      "minItems": 1,
+                      "uniqueItems": true
+                    }
+                  ]
+                },
+                "aquatic_only": {
+                  "type": "boolean"
+                },
+                "detox_only": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "modifier",
+                "targets",
+                "aquatic_only",
+                "detox_only"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1
+        },
+        "protected_planet_flags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "protected_star_flags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "protected_modifiers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "ai_policy": {
+          "type": "object",
+          "properties": {
+            "cost_multiple": {
+              "type": "integer",
+              "minimum": 2
+            },
+            "reserve": {
+              "type": "object",
+              "properties": {
+                "energy": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "biomass": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "energy",
+                "biomass"
+              ],
+              "additionalProperties": false
+            },
+            "min_income": {
+              "type": "object",
+              "properties": {
+                "energy": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "biomass": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "energy",
+                "biomass"
+              ],
+              "additionalProperties": false
+            },
+            "min_colonies": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "cost_multiple",
+            "reserve",
+            "min_income",
+            "min_colonies"
+          ],
+          "additionalProperties": false
+        },
+        "economy": {
+          "type": "object",
+          "properties": {
+            "hydrocentric_ocean_factor": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "biomass_factor": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "parent_cost_factors": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "income_scenarios": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9_]+$"
+                  },
+                  "monthly_energy": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                },
+                "required": [
+                  "label",
+                  "monthly_energy"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "hydrocentric_ocean_factor",
+            "biomass_factor",
+            "parent_cost_factors",
+            "income_scenarios"
+          ],
+          "additionalProperties": false
+        },
+        "supported_deposits": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^d_[a-z0-9_]+$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "reviewed_unprotected_flags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "min_size_proxy",
+        "max_size_proxy",
+        "ai_enabled",
+        "climate_groups",
+        "climate_costs",
+        "candidate_handoffs",
+        "protected_planet_flags",
+        "protected_star_flags",
+        "protected_modifiers",
+        "ai_policy",
+        "economy",
+        "supported_deposits",
+        "reviewed_unprotected_flags"
+      ],
+      "additionalProperties": false
+    },
+    "classes": {
+      "type": "object",
+      "patternProperties": {
+        "^pc_[a-z0-9_]+$": {
+          "type": "object",
+          "properties": {
+            "policy": {
+              "enum": [
+                "engineer",
+                "vanilla",
+                "forbidden"
+              ]
+            },
+            "thermal": {
+              "enum": [
+                "cold",
+                "extreme",
+                "hot",
+                "temperate",
+                "unknown",
+                "warm"
+              ]
+            },
+            "atmosphere": {
+              "enum": [
+                "breathable",
+                "insufficient",
+                "special",
+                "toxic",
+                "unknown"
+              ]
+            },
+            "water": {
+              "enum": [
+                "dry",
+                "ice",
+                "unknown",
+                "wet"
+              ]
+            },
+            "biosphere": {
+              "enum": [
+                "absent_or_unknown",
+                "present",
+                "special",
+                "unknown"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "policy",
+            "thermal",
+            "atmosphere",
+            "water",
+            "biosphere",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "minProperties": 1
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "source": {
+            "type": "string",
+            "pattern": "^pc_[a-z0-9_]+$"
+          },
+          "target": {
+            "type": "string",
+            "pattern": "^pc_[a-z0-9_]+$"
+          },
+          "energy": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "days": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "technologies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^tech_[a-z0-9_]+$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "ai_weight": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5
+          },
+          "features": {
+            "enum": [
+              "native_terraforming_with_preflight"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "source",
+          "target",
+          "energy",
+          "days",
+          "technologies",
+          "ai_weight",
+          "features",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "localization": {
+      "type": "object",
+      "patternProperties": {
+        "^th_[a-z0-9_]+$": {
+          "type": "object",
+          "properties": {
+            "english": {
+              "type": "string",
+              "minLength": 1
+            },
+            "russian": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "english",
+            "russian"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "minProperties": 1,
+      "required": [
+        "th_surveyed",
+        "th_borders",
+        "th_uncolonized",
+        "th_size",
+        "th_investigation",
+        "th_story",
+        "th_deposits",
+        "th_megastructure",
+        "th_eligible"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "version",
+    "target_game",
+    "target_checksum",
+    "days_per_year",
+    "defaults",
+    "classes",
+    "routes",
+    "localization"
+  ],
+  "additionalProperties": false
+}

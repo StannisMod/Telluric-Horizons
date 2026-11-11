@@ -1,10 +1,10 @@
 # Generated transition matrix
 
-Model 0.2.0-dev; target 4.5.4 (1b4f).
+Model 0.3.0-dev; target 4.5.4 (1b4f).
 
 Base costs only, before country/DLC modifiers. Existing vanilla links are preserved.
-New branches hand off Barren/Cold Barren/Toxic candidates to vanilla; Frozen→Ocean hands off aquatic candidates.
-All new projects use the common protection/size filter; AI and Wilderness are disabled.
+New branches yield to usable vanilla candidate links; missing Detox/Hydrocentric unlocks retain the expensive fallback.
+All new projects use the common protection/size/deposit filter; Wilderness biomass and conservative AI are implemented.
 
 | From | To | Energy | Years | Technology |
 |---|---|---:|---:|---|
@@ -69,16 +69,16 @@ All new projects use the common protection/size filter; AI and Wilderness are di
 | pc_rare_crystal_asteroid | forbidden | No supported physically justified ordinary terraforming route |
 | pc_shattered | forbidden | No supported physically justified ordinary terraforming route |
 | pc_broken | forbidden | No supported physically justified ordinary terraforming route |
-| pc_nuked | vanilla | Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3 |
-| pc_gaia | vanilla | Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3 |
-| pc_relic | vanilla | Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3 |
-| pc_city | vanilla | Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3 |
-| pc_hive | vanilla | Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3 |
-| pc_machine | vanilla | Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3 |
-| pc_ringworld_habitable | vanilla | Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3 |
-| pc_habitat | vanilla | Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3 |
-| pc_shrouded | vanilla | Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3 |
-| pc_volcanic | vanilla | Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3 |
+| pc_nuked | vanilla | Preserve special, story and DLC mechanics; class presence audited against 4.5.4 |
+| pc_gaia | vanilla | Preserve special, story and DLC mechanics; class presence audited against 4.5.4 |
+| pc_relic | vanilla | Preserve special, story and DLC mechanics; class presence audited against 4.5.4 |
+| pc_city | vanilla | Preserve special, story and DLC mechanics; class presence audited against 4.5.4 |
+| pc_hive | vanilla | Preserve special, story and DLC mechanics; class presence audited against 4.5.4 |
+| pc_machine | vanilla | Preserve special, story and DLC mechanics; class presence audited against 4.5.4 |
+| pc_ringworld_habitable | vanilla | Preserve special, story and DLC mechanics; class presence audited against 4.5.4 |
+| pc_habitat | vanilla | Preserve special, story and DLC mechanics; class presence audited against 4.5.4 |
+| pc_shrouded | vanilla | Preserve special, story and DLC mechanics; class presence audited against 4.5.4 |
+| pc_volcanic | vanilla | Preserve special, story and DLC mechanics; class presence audited against 4.5.4 |
 | pc_machine_broken | forbidden | Special, artificial, stellar or story body: preserve original rules; no general engineering links |
 | pc_shielded | forbidden | Special, artificial, stellar or story body: preserve original rules; no general engineering links |
 | pc_ai | forbidden | Special, artificial, stellar or story body: preserve original rules; no general engineering links |

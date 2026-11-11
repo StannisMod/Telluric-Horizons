@@ -61,7 +61,7 @@ class BalanceTests(unittest.TestCase):
         model=build.load();model['routes'].pop()
         with self.assertRaisesRegex(ValueError,'coverage'):build.validate(model)
         model=build.load();model['defaults']['protected_planet_flags'].append('bad } always = yes {')
-        with self.assertRaisesRegex(ValueError,'protection'):build.validate(model)
+        with self.assertRaisesRegex(ValueError,'protected_planet_flags'):build.validate(model)
 
     def test_vanilla_handoffs_cover_only_audited_pairs(self):
         links=parse(build.render(build.load())['telluric_horizons/common/terraform/zz_th_engineering.txt'].decode())
@@ -76,8 +76,11 @@ class BalanceTests(unittest.TestCase):
     def test_release_has_no_resource_or_deposit_grant_effect(self):
         scripts=build.render(build.load())
         links=parse(scripts['telluric_horizons/common/terraform/zz_th_engineering.txt'].decode())
+        from paradox import walk
         for k,_,v in links:
-            if k=='terraform_link':self.assertEqual(values(v,'effect'),[])
+            if k=='terraform_link':
+                keys={key for key,_,value in walk(one(v,'effect'))}
+                self.assertEqual(keys,{'from','if','limit','has_modifier','remove_modifier'})
 
 
 if __name__=='__main__':unittest.main()
