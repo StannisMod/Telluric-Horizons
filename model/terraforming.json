@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "version": "0.1.0-dev",
-  "target_game": "4.5.3",
-  "target_checksum": "4e91",
+  "target_game": "4.5.4",
+  "target_checksum": "1b4f",
   "days_per_year": 360,
   "defaults": {
     "min_size_proxy": 10,

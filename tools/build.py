@@ -100,7 +100,7 @@ th_eligible_world = {{
     descriptor = f'''version="{m['version']}"
 name="Telluric Horizons — Planetary Engineering"
 tags={{ "Gameplay" }}
-supported_version="4.5.*"
+supported_version="{m['target_game']}"
 '''
     files = {"telluric_horizons/common/terraform/zz_th_engineering.txt": "".join(links).encode(),
              "telluric_horizons/common/scripted_triggers/th_eligibility.txt": trigger.encode(),

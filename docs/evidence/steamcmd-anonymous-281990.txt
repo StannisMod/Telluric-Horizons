@@ -1,0 +1,37 @@
+COMMAND: app_update 281990 validate
+EXIT CODE: 0
+WARNING: setlocale('en_US.UTF-8') failed, using locale: 'C'. International characters may not work.
+Redirecting stderr to '<STEAM_USER_DIR>/logs/stderr.txt'
+Logging directory: '<STEAM_USER_DIR>/logs'
+Looks like steam didn't shutdown cleanly, scheduling immediate update check
+[  0%] Checking for available updates...
+[----] Verifying installation...
+UpdateUI: skip show logo
+Steam Console Client (c) Valve Corporation - version 1792617903
+-- type 'quit' to exit --
+Loading Steam API...OK
+
+Connecting anonymously to Steam Public...OK
+Waiting for client config...OK
+Waiting for user info...OK
+ Update state (0x0) unknown, progress: 0.00 (0 / 0)
+Success! App '281990' fully installed.
+Unloading Steam API...OK
+
+COMMAND: download_depot 281990 281991 8284331313639661868
+EXIT CODE: 14
+WARNING: setlocale('en_US.UTF-8') failed, using locale: 'C'. International characters may not work.
+Redirecting stderr to '<STEAM_USER_DIR>/logs/stderr.txt'
+Logging directory: '<STEAM_USER_DIR>/logs'
+[  0%] Checking for available updates...
+[----] Verifying installation...
+UpdateUI: skip show logo
+Steam Console Client (c) Valve Corporation - version 1792617903
+-- type 'quit' to exit --
+Loading Steam API...OK
+
+Connecting anonymously to Steam Public...OK
+Waiting for client config...OK
+Waiting for user info...OK
+Depot download failed : missing license for depot (No subscription) 
+Unloading Steam API...OK
