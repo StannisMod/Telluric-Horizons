@@ -7,6 +7,6 @@ Accessed 2026-11-11. Sources inform implementation but do not replace original g
 - CWTools project: https://github.com/cwtools/cwtools-stellaris-config . Full CWTools validation was NOT run; compatibility of this revision with 4.5.3 is not established. Do not count the internal checks as CWTools validation.
 - Official wiki https://stellaris.paradoxwikis.com/Planet_modding was inaccessible (401); no claims rely on its current contents.
 
-Original game definitions were not supplied. We do not distribute game files. Scope, property transfer, duplicate-link semantics and new 4.5 classes remain unverified. No unsupported headless launch options are assumed.
+Original Linux game definitions became available later on November 11 through the user’s licensed installation at /tmp/telluric-stellaris. Launcher metadata and real engine logs identify 4.5.4 (1b4f target checksum from launcher metadata). Read-only inventory and actual engine mounting checks are described in GAME_DATA_AUDIT.md and TEST_REPORT.md. We do not copy or distribute original game files, generated engine documentation, saves or assets. Gameplay/property transfer/DLC/AI remain unverified. No headless execution is claimed.
 
 - Actual SteamCMD anonymous probe: [report and commands](STEAMCMD_REPORT.md), [captured output](evidence/steamcmd-anonymous-281990.txt). App update returned success with zero depots; direct base-depot download returned No subscription. Public app metadata is not access to game definitions.

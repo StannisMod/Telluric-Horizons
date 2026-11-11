@@ -1,13 +1,78 @@
 {
   "schema_version": 1,
-  "version": "0.1.0-dev",
+  "version": "0.2.0-dev",
   "target_game": "4.5.4",
   "target_checksum": "1b4f",
   "days_per_year": 360,
   "defaults": {
     "min_size_proxy": 10,
     "max_size_proxy": 40,
-    "ai_enabled": false
+    "ai_enabled": false,
+    "climate_groups": {
+      "pc_desert": "dry",
+      "pc_arid": "dry",
+      "pc_savannah": "dry",
+      "pc_arctic": "cold",
+      "pc_tundra": "cold",
+      "pc_alpine": "cold",
+      "pc_continental": "wet",
+      "pc_ocean": "wet",
+      "pc_tropical": "wet"
+    },
+    "climate_costs": {
+      "same_group": {
+        "energy": 2000,
+        "days": 1800
+      },
+      "cross_group": {
+        "energy": 5000,
+        "days": 3600
+      }
+    },
+    "candidate_handoffs": {
+      "pc_barren": {
+        "modifier": "terraforming_candidate",
+        "targets": "all",
+        "aquatic_only": false
+      },
+      "pc_barren_cold": {
+        "modifier": "terraforming_candidate",
+        "targets": "all",
+        "aquatic_only": false
+      },
+      "pc_toxic": {
+        "modifier": "toxic_terraforming_candidate",
+        "targets": "all",
+        "aquatic_only": false
+      },
+      "pc_frozen": {
+        "modifier": "frozen_terraforming_candidate",
+        "targets": [
+          "pc_ocean"
+        ],
+        "aquatic_only": true
+      }
+    },
+    "protected_planet_flags": [
+      "th_protected",
+      "precursor_world",
+      "terraform_nucleus_transfixed",
+      "planet_earth"
+    ],
+    "protected_star_flags": [
+      "precursor_system",
+      "lcluster",
+      "lcluster1",
+      "lcluster2",
+      "lcluster3",
+      "lcluster4",
+      "lcluster5",
+      "lcluster_lgate",
+      "guardian_toxic_god_system"
+    ],
+    "protected_modifiers": [
+      "consecrated_world"
+    ]
   },
   "classes": {
     "pc_desert": {
@@ -16,7 +81,7 @@
       "atmosphere": "breathable",
       "water": "dry",
       "biosphere": "present",
-      "reason": "Preserve vanilla climate links until game-data audit"
+      "reason": "Preserve audited vanilla climate links and inhabited-world requirements"
     },
     "pc_arid": {
       "policy": "vanilla",
@@ -24,7 +89,7 @@
       "atmosphere": "breathable",
       "water": "dry",
       "biosphere": "present",
-      "reason": "Preserve vanilla climate links until game-data audit"
+      "reason": "Preserve audited vanilla climate links and inhabited-world requirements"
     },
     "pc_savannah": {
       "policy": "vanilla",
@@ -32,7 +97,7 @@
       "atmosphere": "breathable",
       "water": "dry",
       "biosphere": "present",
-      "reason": "Preserve vanilla climate links until game-data audit"
+      "reason": "Preserve audited vanilla climate links and inhabited-world requirements"
     },
     "pc_continental": {
       "policy": "vanilla",
@@ -40,7 +105,7 @@
       "atmosphere": "breathable",
       "water": "wet",
       "biosphere": "present",
-      "reason": "Preserve vanilla climate links until game-data audit"
+      "reason": "Preserve audited vanilla climate links and inhabited-world requirements"
     },
     "pc_ocean": {
       "policy": "vanilla",
@@ -48,7 +113,7 @@
       "atmosphere": "breathable",
       "water": "wet",
       "biosphere": "present",
-      "reason": "Preserve vanilla climate links until game-data audit"
+      "reason": "Preserve audited vanilla climate links and inhabited-world requirements"
     },
     "pc_tropical": {
       "policy": "vanilla",
@@ -56,7 +121,7 @@
       "atmosphere": "breathable",
       "water": "wet",
       "biosphere": "present",
-      "reason": "Preserve vanilla climate links until game-data audit"
+      "reason": "Preserve audited vanilla climate links and inhabited-world requirements"
     },
     "pc_arctic": {
       "policy": "vanilla",
@@ -64,7 +129,7 @@
       "atmosphere": "breathable",
       "water": "ice",
       "biosphere": "present",
-      "reason": "Preserve vanilla climate links until game-data audit"
+      "reason": "Preserve audited vanilla climate links and inhabited-world requirements"
     },
     "pc_tundra": {
       "policy": "vanilla",
@@ -72,7 +137,7 @@
       "atmosphere": "breathable",
       "water": "ice",
       "biosphere": "present",
-      "reason": "Preserve vanilla climate links until game-data audit"
+      "reason": "Preserve audited vanilla climate links and inhabited-world requirements"
     },
     "pc_alpine": {
       "policy": "vanilla",
@@ -80,7 +145,7 @@
       "atmosphere": "breathable",
       "water": "ice",
       "biosphere": "present",
-      "reason": "Preserve vanilla climate links until game-data audit"
+      "reason": "Preserve audited vanilla climate links and inhabited-world requirements"
     },
     "pc_barren": {
       "policy": "engineer",
@@ -234,14 +299,6 @@
       "biosphere": "special",
       "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
     },
-    "pc_nanite": {
-      "policy": "vanilla",
-      "thermal": "unknown",
-      "atmosphere": "special",
-      "water": "unknown",
-      "biosphere": "special",
-      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
-    },
     "pc_shrouded": {
       "policy": "vanilla",
       "thermal": "unknown",
@@ -257,6 +314,318 @@
       "water": "unknown",
       "biosphere": "special",
       "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+    },
+    "pc_machine_broken": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_shielded": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_ai": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_infested": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_cybrex": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_nanotech": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_b_star": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_a_star": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_f_star": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_g_star": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_k_star": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_m_star": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_m_giant_star": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_t_star": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_black_hole": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_neutron_star": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_pulsar": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_ringworld_habitable_damaged": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_ringworld_tech": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_ringworld_tech_damaged": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_ringworld_seam": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_ringworld_seam_damaged": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_shattered_ring_habitable": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_cosmogenesis_world": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_toxoid_star": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_rift_star": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_astral_scar": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_gray_goo": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_egg_cracked": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_crystal_habitat": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_warden_guardian": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_crystal_asteroid": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_ringworld_shielded": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_habitat_shielded": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_shattered_2": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_cutholoid": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_junk": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_ark": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
+    },
+    "pc_protostar": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "Special, artificial, stellar or story body: preserve original rules; no general engineering links"
     }
   },
   "routes": [
@@ -277,8 +646,8 @@
       "id": "barren_to_arid",
       "source": "pc_barren",
       "target": "pc_arid",
-      "energy": 18000,
-      "days": 8640,
+      "energy": 16000,
+      "days": 9000,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -290,8 +659,8 @@
       "id": "barren_to_savannah",
       "source": "pc_barren",
       "target": "pc_savannah",
-      "energy": 18000,
-      "days": 8640,
+      "energy": 16000,
+      "days": 9000,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -303,8 +672,8 @@
       "id": "barren_to_continental",
       "source": "pc_barren",
       "target": "pc_continental",
-      "energy": 22000,
-      "days": 10080,
+      "energy": 19000,
+      "days": 10800,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -316,8 +685,8 @@
       "id": "barren_to_ocean",
       "source": "pc_barren",
       "target": "pc_ocean",
-      "energy": 22000,
-      "days": 10080,
+      "energy": 19000,
+      "days": 10800,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -329,8 +698,8 @@
       "id": "barren_to_tropical",
       "source": "pc_barren",
       "target": "pc_tropical",
-      "energy": 22000,
-      "days": 10080,
+      "energy": 19000,
+      "days": 10800,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -342,8 +711,8 @@
       "id": "barren_to_arctic",
       "source": "pc_barren",
       "target": "pc_arctic",
-      "energy": 22000,
-      "days": 10080,
+      "energy": 19000,
+      "days": 10800,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -355,8 +724,8 @@
       "id": "barren_to_tundra",
       "source": "pc_barren",
       "target": "pc_tundra",
-      "energy": 22000,
-      "days": 10080,
+      "energy": 19000,
+      "days": 10800,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -368,8 +737,8 @@
       "id": "barren_to_alpine",
       "source": "pc_barren",
       "target": "pc_alpine",
-      "energy": 22000,
-      "days": 10080,
+      "energy": 19000,
+      "days": 10800,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -381,8 +750,8 @@
       "id": "barren_cold_to_desert",
       "source": "pc_barren_cold",
       "target": "pc_desert",
-      "energy": 24000,
-      "days": 11520,
+      "energy": 21000,
+      "days": 12240,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -394,8 +763,8 @@
       "id": "barren_cold_to_arid",
       "source": "pc_barren_cold",
       "target": "pc_arid",
-      "energy": 24000,
-      "days": 11520,
+      "energy": 21000,
+      "days": 12240,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -407,8 +776,8 @@
       "id": "barren_cold_to_savannah",
       "source": "pc_barren_cold",
       "target": "pc_savannah",
-      "energy": 24000,
-      "days": 11520,
+      "energy": 21000,
+      "days": 12240,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -420,8 +789,8 @@
       "id": "barren_cold_to_continental",
       "source": "pc_barren_cold",
       "target": "pc_continental",
-      "energy": 24000,
-      "days": 11520,
+      "energy": 21000,
+      "days": 12240,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -433,8 +802,8 @@
       "id": "barren_cold_to_ocean",
       "source": "pc_barren_cold",
       "target": "pc_ocean",
-      "energy": 24000,
-      "days": 11520,
+      "energy": 21000,
+      "days": 12240,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -446,8 +815,8 @@
       "id": "barren_cold_to_tropical",
       "source": "pc_barren_cold",
       "target": "pc_tropical",
-      "energy": 24000,
-      "days": 11520,
+      "energy": 21000,
+      "days": 12240,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -472,8 +841,8 @@
       "id": "barren_cold_to_tundra",
       "source": "pc_barren_cold",
       "target": "pc_tundra",
-      "energy": 20000,
-      "days": 10080,
+      "energy": 18000,
+      "days": 10440,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -485,8 +854,8 @@
       "id": "barren_cold_to_alpine",
       "source": "pc_barren_cold",
       "target": "pc_alpine",
-      "energy": 20000,
-      "days": 10080,
+      "energy": 18000,
+      "days": 10440,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -498,8 +867,8 @@
       "id": "frozen_to_desert",
       "source": "pc_frozen",
       "target": "pc_desert",
-      "energy": 18000,
-      "days": 8280,
+      "energy": 15000,
+      "days": 9000,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -511,8 +880,8 @@
       "id": "frozen_to_arid",
       "source": "pc_frozen",
       "target": "pc_arid",
-      "energy": 18000,
-      "days": 8280,
+      "energy": 15000,
+      "days": 9000,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -524,8 +893,8 @@
       "id": "frozen_to_savannah",
       "source": "pc_frozen",
       "target": "pc_savannah",
-      "energy": 18000,
-      "days": 8280,
+      "energy": 15000,
+      "days": 9000,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -537,8 +906,8 @@
       "id": "frozen_to_continental",
       "source": "pc_frozen",
       "target": "pc_continental",
-      "energy": 18000,
-      "days": 8280,
+      "energy": 15000,
+      "days": 9000,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -550,8 +919,8 @@
       "id": "frozen_to_ocean",
       "source": "pc_frozen",
       "target": "pc_ocean",
-      "energy": 18000,
-      "days": 8280,
+      "energy": 15000,
+      "days": 9000,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -563,8 +932,8 @@
       "id": "frozen_to_tropical",
       "source": "pc_frozen",
       "target": "pc_tropical",
-      "energy": 18000,
-      "days": 8280,
+      "energy": 15000,
+      "days": 9000,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -589,8 +958,8 @@
       "id": "frozen_to_tundra",
       "source": "pc_frozen",
       "target": "pc_tundra",
-      "energy": 14000,
-      "days": 6840,
+      "energy": 12000,
+      "days": 7200,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -602,8 +971,8 @@
       "id": "frozen_to_alpine",
       "source": "pc_frozen",
       "target": "pc_alpine",
-      "energy": 14000,
-      "days": 6840,
+      "energy": 12000,
+      "days": 7200,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -628,8 +997,8 @@
       "id": "toxic_to_arid",
       "source": "pc_toxic",
       "target": "pc_arid",
-      "energy": 34000,
-      "days": 15840,
+      "energy": 32000,
+      "days": 16200,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -641,8 +1010,8 @@
       "id": "toxic_to_savannah",
       "source": "pc_toxic",
       "target": "pc_savannah",
-      "energy": 34000,
-      "days": 15840,
+      "energy": 32000,
+      "days": 16200,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -654,8 +1023,8 @@
       "id": "toxic_to_continental",
       "source": "pc_toxic",
       "target": "pc_continental",
-      "energy": 38000,
-      "days": 17280,
+      "energy": 35000,
+      "days": 18000,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -667,8 +1036,8 @@
       "id": "toxic_to_ocean",
       "source": "pc_toxic",
       "target": "pc_ocean",
-      "energy": 38000,
-      "days": 17280,
+      "energy": 35000,
+      "days": 18000,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -680,8 +1049,8 @@
       "id": "toxic_to_tropical",
       "source": "pc_toxic",
       "target": "pc_tropical",
-      "energy": 38000,
-      "days": 17280,
+      "energy": 35000,
+      "days": 18000,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -693,8 +1062,8 @@
       "id": "toxic_to_arctic",
       "source": "pc_toxic",
       "target": "pc_arctic",
-      "energy": 38000,
-      "days": 17280,
+      "energy": 35000,
+      "days": 18000,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -706,8 +1075,8 @@
       "id": "toxic_to_tundra",
       "source": "pc_toxic",
       "target": "pc_tundra",
-      "energy": 38000,
-      "days": 17280,
+      "energy": 35000,
+      "days": 18000,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -719,8 +1088,8 @@
       "id": "toxic_to_alpine",
       "source": "pc_toxic",
       "target": "pc_alpine",
-      "energy": 38000,
-      "days": 17280,
+      "energy": 35000,
+      "days": 18000,
       "technologies": [
         "tech_climate_restoration"
       ],
@@ -731,8 +1100,8 @@
   ],
   "localization": {
     "th_eligible": {
-      "english": "Ordinary surveyed, uncolonized world within engineering size limits; no unresolved anomaly or archaeology.",
-      "russian": "Обычный исследованный незаселённый мир в пределах инженерного размера; без незавершённой аномалии и археологии."
+      "english": "Requires a surveyed, uncolonized world inside your borders, within the configured size range, with no anomaly, archaeological site, protected story status or megastructure in the system. Size is a gameplay filter, not gravity.",
+      "russian": "Требуется изученный незаселённый мир в ваших границах, допустимого размера, без аномалии, археологии, защищённого сюжетного статуса и мегасооружений в системе. Размер — игровой фильтр, а не гравитация."
     },
     "th_title": {
       "english": "Telluric Horizons — Planetary Engineering",

@@ -7,6 +7,9 @@ from pathlib import Path
 import re
 import sys
 import zipfile
+from paradox import read as read_script
+from balance import check_routes
+from game_data import audit
 
 ROOT = Path(__file__).resolve().parents[1]
 MODEL = ROOT / "model/terraforming.json"
@@ -55,6 +58,29 @@ def validate(m):
     for key, values in m["localization"].items():
         if set(values) != {"english", "russian"} or not all(values.values()):
             raise ValueError("Incomplete localization: " + key)
+    if not re.fullmatch(r'\d+\.\d+\.\d+', m['target_game']) or not re.fullmatch(r'[0-9a-f]{4}', m['target_checksum']):
+        raise ValueError('Invalid target version/checksum')
+    d = m['defaults']
+    if d['ai_enabled'] is not False:
+        raise ValueError('AI remains gated pending runtime economy tests')
+    for field in ('protected_planet_flags', 'protected_star_flags', 'protected_modifiers'):
+        if not isinstance(d[field], list) or any(not re.fullmatch(r'[a-z0-9_]+', x) for x in d[field]):
+            raise ValueError('Invalid protection identifier')
+    targets = set(d['climate_groups'])
+    for source, spec in m['classes'].items():
+        if spec['policy'] == 'engineer' and {b for a,b in pairs if a == source} != targets:
+            raise ValueError('Incomplete engineering climate coverage')
+    for costs in d['climate_costs'].values():
+        if set(costs) != {'energy','days'} or any(type(x) is not int or x <= 0 for x in costs.values()):
+            raise ValueError('Invalid climate cost baseline')
+    for source, handoff in d['candidate_handoffs'].items():
+        if source not in m['classes'] or not re.fullmatch(r'[a-z0-9_]+', handoff['modifier']):
+            raise ValueError('Invalid candidate handoff')
+        if handoff['targets'] != 'all' and (not isinstance(handoff['targets'],list) or not set(handoff['targets']) <= targets):
+            raise ValueError('Invalid handoff targets')
+        if type(handoff['aquatic_only']) is not bool:
+            raise ValueError('Invalid aquatic gate')
+    check_routes(m)
     return m
 
 
@@ -67,13 +93,25 @@ def render(m):
     links = [header]
     for t in sorted(m["routes"], key=lambda x: x["id"]):
         tech = "\n".join("        has_technology = " + x for x in t["technologies"])
+        handoff = m['defaults']['candidate_handoffs'].get(t['source'])
+        gate = ''
+        if handoff and (handoff['targets'] == 'all' or t['target'] in handoff['targets']):
+            candidate = f"from = {{ has_modifier = {handoff['modifier']} }}"
+            if handoff['aquatic_only']:
+                candidate += '\n            OR = { has_aquatic_trait = yes has_trait = trait_robot_aquatic }'
+            gate = f'\n        NOT = {{ AND = {{ {candidate} }} }}'
+        category = 'terraforming_ocean' if t['target'] == 'pc_ocean' else 'terraforming'
         links.append(f'''# {t['id']}
 terraform_link = {{
     from = {t['source']}
     to = {t['target']}
-    resources = {{ category = terraforming cost = {{ energy = {t['energy']} }} }}
+    resources = {{ category = {category} cost = {{ energy = {t['energy']} }} }}
     duration = {t['days']}
-    potential = {{ is_ai = no }}
+    potential = {{
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no{gate}
+    }}
     condition = {{
 {tech}
         custom_tooltip = {{
@@ -85,16 +123,27 @@ terraform_link = {{
 }}
 ''')
     d = m["defaults"]
+    protections = '\n'.join('    NOT = { has_planet_flag = ' + f + ' }' for f in d['protected_planet_flags'])
+    modifiers = '\n'.join('    NOT = { has_modifier = ' + f + ' }' for f in d['protected_modifiers'])
+    stars = '\n'.join('            has_star_flag = ' + f for f in d['protected_star_flags'])
     trigger = header + f'''# Scope: planet. Size is a configurable gameplay proxy, not mass/gravity.
 th_eligible_world = {{
-    is_surveyed = root
+    is_surveyed = {{ who = root status = yes }}
     is_colony = no
     is_inside_border = root
     planet_size >= {d['min_size_proxy']}
     planet_size <= {d['max_size_proxy']}
     has_anomaly = no
-    has_archaeological_site = no
-    NOT = {{ has_planet_flag = th_protected }}
+    NOT = {{ exists = archaeological_site }}
+    is_holy_world = no
+{protections}
+{modifiers}
+    solar_system = {{
+        NOT = {{ any_system_megastructure = {{ always = yes }} }}
+        NOR = {{
+{stars}
+        }}
+    }}
 }}
 '''
     descriptor = f'''version="{m['version']}"
@@ -109,7 +158,11 @@ supported_version="{m['target_game']}"
     for lang in ("english", "russian"):
         text = f"l_{lang}:\n" + "".join(f" {k}:0 {json.dumps(v[lang], ensure_ascii=False)}\n" for k,v in sorted(m["localization"].items()))
         files[f"telluric_horizons/localisation/{lang}/th_l_{lang}.yml"] = text.encode("utf-8-sig")
-    matrix = ["# Generated transition matrix\n\n| From | To | Energy | Years | Technology |\n|---|---|---:|---:|---|\n"]
+    matrix = [f"# Generated transition matrix\n\nModel {m['version']}; target {m['target_game']} ({m['target_checksum']}).\n\n"
+              "Base costs only, before country/DLC modifiers. Existing vanilla links are preserved.\n"
+              "New branches hand off Barren/Cold Barren/Toxic candidates to vanilla; Frozen→Ocean hands off aquatic candidates.\n"
+              "All new projects use the common protection/size filter; AI and Wilderness are disabled.\n\n"
+              "| From | To | Energy | Years | Technology |\n|---|---|---:|---:|---|\n"]
     for t in m["routes"]:
         matrix.append(f"| {t['source']} | {t['target']} | {t['energy']} | {t['days']/360:g} | {', '.join(t['technologies'])} |\n")
     matrix.append("\n## Preserved and forbidden classes\n\n| Class | Policy | Reason |\n|---|---|---|\n")
@@ -137,7 +190,7 @@ def build(check=False):
 
 def package():
     files = build(check=True)
-    dest = ROOT / "dist/telluric-horizons-0.1.0-dev.zip"
+    dest = ROOT / f"dist/telluric-horizons-{load()['version']}.zip"
     dest.parent.mkdir(exist_ok=True)
     with zipfile.ZipFile(dest, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as z:
         for name,data in sorted(files.items()):
@@ -159,12 +212,18 @@ def check_game():
             raise ValueError("Missing game data: " + folder)
         names = set()
         for p in paths:
-            text = re.sub(r"#[^\n]*", "", p.read_text(encoding="utf-8-sig"))
-            names.update(re.findall(r"(?m)^\s*(" + prefix + r"[a-z0-9_]+)\s*=\s*\{", text))
+            names.update(k for k, op, v in read_script(p) if k and k.startswith(prefix) and isinstance(v, list))
         missing = required-names
         if missing:
             raise ValueError("Missing game definitions: " + str(sorted(missing)))
-    print("PASS: named class and technology references only; scope/runtime remain NOT TESTED")
+        if folder == 'planet_classes' and names != required:
+            raise ValueError('Unclassified game classes: ' + str(sorted(names-required)))
+    settings = json.loads((game/'launcher-settings.json').read_text())
+    if settings.get('rawVersion', '').lstrip('v') != m['target_game'] or m['target_checksum'] not in settings.get('version', ''):
+        raise ValueError('Installed version/checksum differs from model target')
+    result = audit(game, m)
+    print(json.dumps(result, indent=2))
+    print("PASS: complete class inventory, version, references, vanilla climate baseline and candidate handoffs; execution/UI remain NOT TESTED")
     return 0
 
 

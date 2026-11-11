@@ -3,9 +3,14 @@
 terraform_link = {
     from = pc_barren_cold
     to = pc_alpine
-    resources = { category = terraforming cost = { energy = 20000 } }
-    duration = 10080
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 18000 } }
+    duration = 10440
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -21,7 +26,12 @@ terraform_link = {
     to = pc_arctic
     resources = { category = terraforming cost = { energy = 16000 } }
     duration = 8640
-    potential = { is_ai = no }
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -35,9 +45,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren_cold
     to = pc_arid
-    resources = { category = terraforming cost = { energy = 24000 } }
-    duration = 11520
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 21000 } }
+    duration = 12240
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -51,9 +66,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren_cold
     to = pc_continental
-    resources = { category = terraforming cost = { energy = 24000 } }
-    duration = 11520
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 21000 } }
+    duration = 12240
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -67,9 +87,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren_cold
     to = pc_desert
-    resources = { category = terraforming cost = { energy = 24000 } }
-    duration = 11520
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 21000 } }
+    duration = 12240
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -83,9 +108,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren_cold
     to = pc_ocean
-    resources = { category = terraforming cost = { energy = 24000 } }
-    duration = 11520
-    potential = { is_ai = no }
+    resources = { category = terraforming_ocean cost = { energy = 21000 } }
+    duration = 12240
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -99,9 +129,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren_cold
     to = pc_savannah
-    resources = { category = terraforming cost = { energy = 24000 } }
-    duration = 11520
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 21000 } }
+    duration = 12240
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -115,9 +150,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren_cold
     to = pc_tropical
-    resources = { category = terraforming cost = { energy = 24000 } }
-    duration = 11520
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 21000 } }
+    duration = 12240
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -131,9 +171,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren_cold
     to = pc_tundra
-    resources = { category = terraforming cost = { energy = 20000 } }
-    duration = 10080
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 18000 } }
+    duration = 10440
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -147,9 +192,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren
     to = pc_alpine
-    resources = { category = terraforming cost = { energy = 22000 } }
-    duration = 10080
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 19000 } }
+    duration = 10800
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -163,9 +213,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren
     to = pc_arctic
-    resources = { category = terraforming cost = { energy = 22000 } }
-    duration = 10080
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 19000 } }
+    duration = 10800
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -179,9 +234,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren
     to = pc_arid
-    resources = { category = terraforming cost = { energy = 18000 } }
-    duration = 8640
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 16000 } }
+    duration = 9000
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -195,9 +255,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren
     to = pc_continental
-    resources = { category = terraforming cost = { energy = 22000 } }
-    duration = 10080
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 19000 } }
+    duration = 10800
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -213,7 +278,12 @@ terraform_link = {
     to = pc_desert
     resources = { category = terraforming cost = { energy = 14000 } }
     duration = 7200
-    potential = { is_ai = no }
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -227,9 +297,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren
     to = pc_ocean
-    resources = { category = terraforming cost = { energy = 22000 } }
-    duration = 10080
-    potential = { is_ai = no }
+    resources = { category = terraforming_ocean cost = { energy = 19000 } }
+    duration = 10800
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -243,9 +318,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren
     to = pc_savannah
-    resources = { category = terraforming cost = { energy = 18000 } }
-    duration = 8640
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 16000 } }
+    duration = 9000
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -259,9 +339,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren
     to = pc_tropical
-    resources = { category = terraforming cost = { energy = 22000 } }
-    duration = 10080
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 19000 } }
+    duration = 10800
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -275,9 +360,14 @@ terraform_link = {
 terraform_link = {
     from = pc_barren
     to = pc_tundra
-    resources = { category = terraforming cost = { energy = 22000 } }
-    duration = 10080
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 19000 } }
+    duration = 10800
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -291,9 +381,13 @@ terraform_link = {
 terraform_link = {
     from = pc_frozen
     to = pc_alpine
-    resources = { category = terraforming cost = { energy = 14000 } }
-    duration = 6840
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 12000 } }
+    duration = 7200
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -309,7 +403,11 @@ terraform_link = {
     to = pc_arctic
     resources = { category = terraforming cost = { energy = 10000 } }
     duration = 5400
-    potential = { is_ai = no }
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -323,9 +421,13 @@ terraform_link = {
 terraform_link = {
     from = pc_frozen
     to = pc_arid
-    resources = { category = terraforming cost = { energy = 18000 } }
-    duration = 8280
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 15000 } }
+    duration = 9000
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -339,9 +441,13 @@ terraform_link = {
 terraform_link = {
     from = pc_frozen
     to = pc_continental
-    resources = { category = terraforming cost = { energy = 18000 } }
-    duration = 8280
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 15000 } }
+    duration = 9000
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -355,9 +461,13 @@ terraform_link = {
 terraform_link = {
     from = pc_frozen
     to = pc_desert
-    resources = { category = terraforming cost = { energy = 18000 } }
-    duration = 8280
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 15000 } }
+    duration = 9000
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -371,9 +481,15 @@ terraform_link = {
 terraform_link = {
     from = pc_frozen
     to = pc_ocean
-    resources = { category = terraforming cost = { energy = 18000 } }
-    duration = 8280
-    potential = { is_ai = no }
+    resources = { category = terraforming_ocean cost = { energy = 15000 } }
+    duration = 9000
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = frozen_terraforming_candidate }
+            OR = { has_aquatic_trait = yes has_trait = trait_robot_aquatic } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -387,9 +503,13 @@ terraform_link = {
 terraform_link = {
     from = pc_frozen
     to = pc_savannah
-    resources = { category = terraforming cost = { energy = 18000 } }
-    duration = 8280
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 15000 } }
+    duration = 9000
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -403,9 +523,13 @@ terraform_link = {
 terraform_link = {
     from = pc_frozen
     to = pc_tropical
-    resources = { category = terraforming cost = { energy = 18000 } }
-    duration = 8280
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 15000 } }
+    duration = 9000
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -419,9 +543,13 @@ terraform_link = {
 terraform_link = {
     from = pc_frozen
     to = pc_tundra
-    resources = { category = terraforming cost = { energy = 14000 } }
-    duration = 6840
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 12000 } }
+    duration = 7200
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -435,9 +563,14 @@ terraform_link = {
 terraform_link = {
     from = pc_toxic
     to = pc_alpine
-    resources = { category = terraforming cost = { energy = 38000 } }
-    duration = 17280
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 35000 } }
+    duration = 18000
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -451,9 +584,14 @@ terraform_link = {
 terraform_link = {
     from = pc_toxic
     to = pc_arctic
-    resources = { category = terraforming cost = { energy = 38000 } }
-    duration = 17280
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 35000 } }
+    duration = 18000
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -467,9 +605,14 @@ terraform_link = {
 terraform_link = {
     from = pc_toxic
     to = pc_arid
-    resources = { category = terraforming cost = { energy = 34000 } }
-    duration = 15840
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 32000 } }
+    duration = 16200
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -483,9 +626,14 @@ terraform_link = {
 terraform_link = {
     from = pc_toxic
     to = pc_continental
-    resources = { category = terraforming cost = { energy = 38000 } }
-    duration = 17280
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 35000 } }
+    duration = 18000
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -501,7 +649,12 @@ terraform_link = {
     to = pc_desert
     resources = { category = terraforming cost = { energy = 30000 } }
     duration = 14400
-    potential = { is_ai = no }
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -515,9 +668,14 @@ terraform_link = {
 terraform_link = {
     from = pc_toxic
     to = pc_ocean
-    resources = { category = terraforming cost = { energy = 38000 } }
-    duration = 17280
-    potential = { is_ai = no }
+    resources = { category = terraforming_ocean cost = { energy = 35000 } }
+    duration = 18000
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -531,9 +689,14 @@ terraform_link = {
 terraform_link = {
     from = pc_toxic
     to = pc_savannah
-    resources = { category = terraforming cost = { energy = 34000 } }
-    duration = 15840
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 32000 } }
+    duration = 16200
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -547,9 +710,14 @@ terraform_link = {
 terraform_link = {
     from = pc_toxic
     to = pc_tropical
-    resources = { category = terraforming cost = { energy = 38000 } }
-    duration = 17280
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 35000 } }
+    duration = 18000
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {
@@ -563,9 +731,14 @@ terraform_link = {
 terraform_link = {
     from = pc_toxic
     to = pc_tundra
-    resources = { category = terraforming cost = { energy = 38000 } }
-    duration = 17280
-    potential = { is_ai = no }
+    resources = { category = terraforming cost = { energy = 35000 } }
+    duration = 18000
+    potential = {
+        is_ai = no
+        exists = owner
+        is_wilderness_empire = no
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate } } }
+    }
     condition = {
         has_technology = tech_climate_restoration
         custom_tooltip = {

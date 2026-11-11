@@ -1,3 +1,3 @@
 ﻿l_english:
- th_eligible:0 "Ordinary surveyed, uncolonized world within engineering size limits; no unresolved anomaly or archaeology."
+ th_eligible:0 "Requires a surveyed, uncolonized world inside your borders, within the configured size range, with no anomaly, archaeological site, protected story status or megastructure in the system. Size is a gameplay filter, not gravity."
  th_title:0 "Telluric Horizons — Planetary Engineering"

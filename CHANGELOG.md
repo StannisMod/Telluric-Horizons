@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0-dev
+
+Audited external Linux Stellaris 4.5.4 data: all 69 classes, 72 standard climate pairs, and candidate overlaps. Corrected survey/archaeology API, removed nonexistent pc_nanite, preserved DLC candidate branches, added story/holy/megastructure protection, and aligned base prices/durations with climate paths. Added read-only data reader/audit, shortest-path checks, 30 tests and isolated real-engine loading probe. Confirmed mod mounting with no new load diagnostics against a vanilla control. Gameplay, property transfer and AI remain unverified; no original game files distributed.
+
 ## 0.1.0-dev
 
 Anonymous SteamCMD tested with working network: successful login, empty

@@ -4,6 +4,9 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'tools'))
 
 spec=importlib.util.spec_from_file_location("compiler",Path(__file__).resolve().parents[1]/"tools/build.py")
 b=importlib.util.module_from_spec(spec);spec.loader.exec_module(b)
@@ -32,7 +35,10 @@ class ModelTests(unittest.TestCase):
             if c["policy"]=="engineer": self.assertEqual({t["target"] for t in self.m["routes"] if t["source"]==k},targets)
     def test_candidate_not_required(self):
         output=b.render(self.m)
-        self.assertNotIn(b"terraforming_candidate",output["telluric_horizons/common/terraform/zz_th_engineering.txt"])
+        # Candidates are handed to vanilla, never required for our branch.
+        text=output["telluric_horizons/common/terraform/zz_th_engineering.txt"].decode()
+        self.assertIn('NOT = { AND = { from = { has_modifier = terraforming_candidate }',text)
+        self.assertNotIn('has_archaeological_site',output['telluric_horizons/common/scripted_triggers/th_eligibility.txt'].decode())
     def test_localization_bom(self):
         for k,v in b.render(self.m).items():
             if k.endswith(".yml"): self.assertTrue(v.startswith(b"\xef\xbb\xbf"))
