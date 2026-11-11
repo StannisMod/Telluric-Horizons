@@ -1,0 +1,742 @@
+{
+  "schema_version": 1,
+  "version": "0.1.0-dev",
+  "target_game": "4.5.3",
+  "target_checksum": "4e91",
+  "days_per_year": 360,
+  "defaults": {
+    "min_size_proxy": 10,
+    "max_size_proxy": 40,
+    "ai_enabled": false
+  },
+  "classes": {
+    "pc_desert": {
+      "policy": "vanilla",
+      "thermal": "hot",
+      "atmosphere": "breathable",
+      "water": "dry",
+      "biosphere": "present",
+      "reason": "Preserve vanilla climate links until game-data audit"
+    },
+    "pc_arid": {
+      "policy": "vanilla",
+      "thermal": "hot",
+      "atmosphere": "breathable",
+      "water": "dry",
+      "biosphere": "present",
+      "reason": "Preserve vanilla climate links until game-data audit"
+    },
+    "pc_savannah": {
+      "policy": "vanilla",
+      "thermal": "hot",
+      "atmosphere": "breathable",
+      "water": "dry",
+      "biosphere": "present",
+      "reason": "Preserve vanilla climate links until game-data audit"
+    },
+    "pc_continental": {
+      "policy": "vanilla",
+      "thermal": "temperate",
+      "atmosphere": "breathable",
+      "water": "wet",
+      "biosphere": "present",
+      "reason": "Preserve vanilla climate links until game-data audit"
+    },
+    "pc_ocean": {
+      "policy": "vanilla",
+      "thermal": "temperate",
+      "atmosphere": "breathable",
+      "water": "wet",
+      "biosphere": "present",
+      "reason": "Preserve vanilla climate links until game-data audit"
+    },
+    "pc_tropical": {
+      "policy": "vanilla",
+      "thermal": "hot",
+      "atmosphere": "breathable",
+      "water": "wet",
+      "biosphere": "present",
+      "reason": "Preserve vanilla climate links until game-data audit"
+    },
+    "pc_arctic": {
+      "policy": "vanilla",
+      "thermal": "cold",
+      "atmosphere": "breathable",
+      "water": "ice",
+      "biosphere": "present",
+      "reason": "Preserve vanilla climate links until game-data audit"
+    },
+    "pc_tundra": {
+      "policy": "vanilla",
+      "thermal": "cold",
+      "atmosphere": "breathable",
+      "water": "ice",
+      "biosphere": "present",
+      "reason": "Preserve vanilla climate links until game-data audit"
+    },
+    "pc_alpine": {
+      "policy": "vanilla",
+      "thermal": "cold",
+      "atmosphere": "breathable",
+      "water": "ice",
+      "biosphere": "present",
+      "reason": "Preserve vanilla climate links until game-data audit"
+    },
+    "pc_barren": {
+      "policy": "engineer",
+      "thermal": "warm",
+      "atmosphere": "insufficient",
+      "water": "unknown",
+      "biosphere": "absent_or_unknown",
+      "reason": "Engineered atmosphere and biosphere; class-based abstraction"
+    },
+    "pc_barren_cold": {
+      "policy": "engineer",
+      "thermal": "cold",
+      "atmosphere": "insufficient",
+      "water": "unknown",
+      "biosphere": "absent_or_unknown",
+      "reason": "Engineered atmosphere and biosphere; class-based abstraction"
+    },
+    "pc_frozen": {
+      "policy": "engineer",
+      "thermal": "cold",
+      "atmosphere": "unknown",
+      "water": "ice",
+      "biosphere": "absent_or_unknown",
+      "reason": "Engineered atmosphere and biosphere; class-based abstraction"
+    },
+    "pc_toxic": {
+      "policy": "engineer",
+      "thermal": "extreme",
+      "atmosphere": "toxic",
+      "water": "unknown",
+      "biosphere": "absent_or_unknown",
+      "reason": "Engineered atmosphere and biosphere; class-based abstraction"
+    },
+    "pc_molten": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "No supported physically justified ordinary terraforming route"
+    },
+    "pc_gas_giant": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "No supported physically justified ordinary terraforming route"
+    },
+    "pc_asteroid": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "No supported physically justified ordinary terraforming route"
+    },
+    "pc_ice_asteroid": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "No supported physically justified ordinary terraforming route"
+    },
+    "pc_rare_crystal_asteroid": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "No supported physically justified ordinary terraforming route"
+    },
+    "pc_shattered": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "No supported physically justified ordinary terraforming route"
+    },
+    "pc_broken": {
+      "policy": "forbidden",
+      "thermal": "unknown",
+      "atmosphere": "unknown",
+      "water": "unknown",
+      "biosphere": "unknown",
+      "reason": "No supported physically justified ordinary terraforming route"
+    },
+    "pc_nuked": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "special",
+      "water": "unknown",
+      "biosphere": "special",
+      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+    },
+    "pc_gaia": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "special",
+      "water": "unknown",
+      "biosphere": "special",
+      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+    },
+    "pc_relic": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "special",
+      "water": "unknown",
+      "biosphere": "special",
+      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+    },
+    "pc_city": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "special",
+      "water": "unknown",
+      "biosphere": "special",
+      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+    },
+    "pc_hive": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "special",
+      "water": "unknown",
+      "biosphere": "special",
+      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+    },
+    "pc_machine": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "special",
+      "water": "unknown",
+      "biosphere": "special",
+      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+    },
+    "pc_ringworld_habitable": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "special",
+      "water": "unknown",
+      "biosphere": "special",
+      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+    },
+    "pc_habitat": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "special",
+      "water": "unknown",
+      "biosphere": "special",
+      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+    },
+    "pc_nanite": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "special",
+      "water": "unknown",
+      "biosphere": "special",
+      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+    },
+    "pc_shrouded": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "special",
+      "water": "unknown",
+      "biosphere": "special",
+      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+    },
+    "pc_volcanic": {
+      "policy": "vanilla",
+      "thermal": "unknown",
+      "atmosphere": "special",
+      "water": "unknown",
+      "biosphere": "special",
+      "reason": "Preserve special, story and DLC mechanics; inventory not yet verified against 4.5.3"
+    }
+  },
+  "routes": [
+    {
+      "id": "barren_to_desert",
+      "source": "pc_barren",
+      "target": "pc_desert",
+      "energy": 14000,
+      "days": 7200,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_to_arid",
+      "source": "pc_barren",
+      "target": "pc_arid",
+      "energy": 18000,
+      "days": 8640,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_to_savannah",
+      "source": "pc_barren",
+      "target": "pc_savannah",
+      "energy": 18000,
+      "days": 8640,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_to_continental",
+      "source": "pc_barren",
+      "target": "pc_continental",
+      "energy": 22000,
+      "days": 10080,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_to_ocean",
+      "source": "pc_barren",
+      "target": "pc_ocean",
+      "energy": 22000,
+      "days": 10080,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_to_tropical",
+      "source": "pc_barren",
+      "target": "pc_tropical",
+      "energy": 22000,
+      "days": 10080,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_to_arctic",
+      "source": "pc_barren",
+      "target": "pc_arctic",
+      "energy": 22000,
+      "days": 10080,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_to_tundra",
+      "source": "pc_barren",
+      "target": "pc_tundra",
+      "energy": 22000,
+      "days": 10080,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_to_alpine",
+      "source": "pc_barren",
+      "target": "pc_alpine",
+      "energy": 22000,
+      "days": 10080,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_cold_to_desert",
+      "source": "pc_barren_cold",
+      "target": "pc_desert",
+      "energy": 24000,
+      "days": 11520,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_cold_to_arid",
+      "source": "pc_barren_cold",
+      "target": "pc_arid",
+      "energy": 24000,
+      "days": 11520,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_cold_to_savannah",
+      "source": "pc_barren_cold",
+      "target": "pc_savannah",
+      "energy": 24000,
+      "days": 11520,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_cold_to_continental",
+      "source": "pc_barren_cold",
+      "target": "pc_continental",
+      "energy": 24000,
+      "days": 11520,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_cold_to_ocean",
+      "source": "pc_barren_cold",
+      "target": "pc_ocean",
+      "energy": 24000,
+      "days": 11520,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_cold_to_tropical",
+      "source": "pc_barren_cold",
+      "target": "pc_tropical",
+      "energy": 24000,
+      "days": 11520,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_cold_to_arctic",
+      "source": "pc_barren_cold",
+      "target": "pc_arctic",
+      "energy": 16000,
+      "days": 8640,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_cold_to_tundra",
+      "source": "pc_barren_cold",
+      "target": "pc_tundra",
+      "energy": 20000,
+      "days": 10080,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_cold_to_alpine",
+      "source": "pc_barren_cold",
+      "target": "pc_alpine",
+      "energy": 20000,
+      "days": 10080,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "frozen_to_desert",
+      "source": "pc_frozen",
+      "target": "pc_desert",
+      "energy": 18000,
+      "days": 8280,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "frozen_to_arid",
+      "source": "pc_frozen",
+      "target": "pc_arid",
+      "energy": 18000,
+      "days": 8280,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "frozen_to_savannah",
+      "source": "pc_frozen",
+      "target": "pc_savannah",
+      "energy": 18000,
+      "days": 8280,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "frozen_to_continental",
+      "source": "pc_frozen",
+      "target": "pc_continental",
+      "energy": 18000,
+      "days": 8280,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "frozen_to_ocean",
+      "source": "pc_frozen",
+      "target": "pc_ocean",
+      "energy": 18000,
+      "days": 8280,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "frozen_to_tropical",
+      "source": "pc_frozen",
+      "target": "pc_tropical",
+      "energy": 18000,
+      "days": 8280,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "frozen_to_arctic",
+      "source": "pc_frozen",
+      "target": "pc_arctic",
+      "energy": 10000,
+      "days": 5400,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "frozen_to_tundra",
+      "source": "pc_frozen",
+      "target": "pc_tundra",
+      "energy": 14000,
+      "days": 6840,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "frozen_to_alpine",
+      "source": "pc_frozen",
+      "target": "pc_alpine",
+      "energy": 14000,
+      "days": 6840,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "toxic_to_desert",
+      "source": "pc_toxic",
+      "target": "pc_desert",
+      "energy": 30000,
+      "days": 14400,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "toxic_to_arid",
+      "source": "pc_toxic",
+      "target": "pc_arid",
+      "energy": 34000,
+      "days": 15840,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "toxic_to_savannah",
+      "source": "pc_toxic",
+      "target": "pc_savannah",
+      "energy": 34000,
+      "days": 15840,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "toxic_to_continental",
+      "source": "pc_toxic",
+      "target": "pc_continental",
+      "energy": 38000,
+      "days": 17280,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "toxic_to_ocean",
+      "source": "pc_toxic",
+      "target": "pc_ocean",
+      "energy": 38000,
+      "days": 17280,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "toxic_to_tropical",
+      "source": "pc_toxic",
+      "target": "pc_tropical",
+      "energy": 38000,
+      "days": 17280,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "toxic_to_arctic",
+      "source": "pc_toxic",
+      "target": "pc_arctic",
+      "energy": 38000,
+      "days": 17280,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "toxic_to_tundra",
+      "source": "pc_toxic",
+      "target": "pc_tundra",
+      "energy": 38000,
+      "days": 17280,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "toxic_to_alpine",
+      "source": "pc_toxic",
+      "target": "pc_alpine",
+      "energy": 38000,
+      "days": 17280,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 0,
+      "features": "engine_default_unverified",
+      "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    }
+  ],
+  "localization": {
+    "th_eligible": {
+      "english": "Ordinary surveyed, uncolonized world within engineering size limits; no unresolved anomaly or archaeology.",
+      "russian": "Обычный исследованный незаселённый мир в пределах инженерного размера; без незавершённой аномалии и археологии."
+    },
+    "th_title": {
+      "english": "Telluric Horizons — Planetary Engineering",
+      "russian": "Telluric Horizons — Планетарная инженерия"
+    }
+  }
+}
