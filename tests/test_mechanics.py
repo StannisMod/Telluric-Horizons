@@ -23,11 +23,46 @@ class ScenarioTests(unittest.TestCase):
         self.assertEqual(table['barren_to_tropical']['energy'],16250)
         self.assertEqual(table['toxic_to_arctic']['biomass'],15625)
 
+    def test_gaia_base_prices_preserve_native_biomass_ratio(self):
+        table=price_table(self.m)
+        expected={'barren_to_gaia':(21500,10500),'barren_cold_to_gaia':(23500,11500),
+                  'frozen_to_gaia':(17500,8500),'toxic_to_gaia':(37500,18500),
+                  'frozen_candidate_to_gaia':(12500,6000),'toxic_candidate_to_gaia':(17500,8500)}
+        for route,pair in expected.items():self.assertEqual((table[route]['energy'],table[route]['biomass']),pair)
+        hydro=price_table(self.m,True)
+        self.assertEqual(hydro['barren_cold_to_gaia']['energy'],23250)
+        self.assertEqual(hydro['toxic_to_gaia']['energy'],33750)
+        self.assertEqual(hydro['frozen_candidate_to_gaia'],{'energy':11250,'biomass':5375})
+        self.assertEqual(hydro['toxic_candidate_to_gaia'],{'energy':15000,'biomass':7250})
+
+    def test_gaia_is_gated_and_candidate_variants_are_complements(self):
+        text=build.render(self.m)['telluric_horizons/common/terraform/zz_th_engineering.txt'].decode()
+        links=[v for k,_,v in parse(text) if k=='terraform_link' and one(v,'to')=='pc_gaia']
+        self.assertEqual(len(links),6)
+        for link in links:self.assertIn('ap_world_shaper',values(one(link,'potential'),'has_ascension_perk'))
+        for source in ('pc_frozen','pc_toxic'):
+            branches=[one(v,'potential') for v in links if one(v,'from')==source]
+            regular=next(v for v in branches if values(v,'NOT'))
+            ready=next(v for v in branches if values(v,'AND'))
+            self.assertEqual(one(one(regular,'NOT'),'AND'),one(ready,'AND'))
+
+    def test_gaia_without_perk_or_missing_candidate_variant_fails(self):
+        model=copy.deepcopy(self.m)
+        next(r for r in model['routes'] if r['id']=='barren_to_gaia').pop('required_perks')
+        with self.assertRaisesRegex(ValueError,'World Shaper'):build.validate(model)
+        model=copy.deepcopy(self.m);model['routes']=[r for r in model['routes'] if r['id']!='toxic_candidate_to_gaia']
+        with self.assertRaisesRegex(ValueError,'coverage'):build.validate(model)
+
+    def test_toxic_ready_gaia_keeps_native_cleanup(self):
+        text=build.render(self.m)['telluric_horizons/common/terraform/zz_th_engineering.txt'].decode()
+        self.assertEqual(text.count('detox_hangover = yes'),1)
+        self.assertNotIn('add_modifier = terraforming_candidate',text)
+
     def test_no_discount_changes_baseline(self):
         table=price_table(self.m)
         for route in self.m['routes']:
             self.assertEqual(table[route['id']]['energy'],route['energy'])
-            self.assertEqual(table[route['id']]['biomass']*2,route['energy'])
+            if route['target']!='pc_gaia':self.assertEqual(table[route['id']]['biomass']*2,route['energy'])
         check_scenarios(self.m)
 
     def test_cost_triggers_select_exactly_one_resource(self):
@@ -91,7 +126,7 @@ class ScenarioTests(unittest.TestCase):
     def test_ai_configuration_can_be_disabled(self):
         self.m['defaults']['ai_enabled']=False
         text=build.render(build.validate(self.m))['telluric_horizons/common/terraform/zz_th_engineering.txt'].decode()
-        self.assertEqual(text.count('ai_weight = { weight = 0 }'),36)
+        self.assertEqual(text.count('ai_weight = { weight = 0 }'),42)
         self.assertIn('potential = {\n        is_ai = no',text)
 
     def test_unknown_and_special_deposits_are_not_whitelisted(self):
@@ -118,6 +153,7 @@ class ScenarioTests(unittest.TestCase):
 
     def test_v1_migration_is_explicit_nonmutating_and_valid(self):
         old=copy.deepcopy(self.m);old['schema_version']=1
+        old['defaults'].pop('gaia',None);old['routes']=[r for r in old['routes'] if r['target']!='pc_gaia']
         for key in ('ai_policy','economy','supported_deposits'):old['defaults'].pop(key)
         before=copy.deepcopy(old)
         migrated=upgrade_v1(old)
@@ -127,6 +163,7 @@ class ScenarioTests(unittest.TestCase):
 
     def test_early_v1_defaults_and_stale_prices_can_be_upgraded(self):
         old=copy.deepcopy(self.m);old['schema_version']=1
+        old['defaults'].pop('gaia',None);old['routes']=[r for r in old['routes'] if r['target']!='pc_gaia']
         old['defaults']={k:old['defaults'][k] for k in ('min_size_proxy','max_size_proxy','ai_enabled')}
         route=next(r for r in old['routes'] if r['id']=='barren_to_continental');route['energy']=22000
         result=upgrade_v1(old);build.validate(result)
@@ -143,8 +180,8 @@ class ScenarioTests(unittest.TestCase):
     def test_runtime_fixtures_are_opt_in_and_cover_all_routes(self):
         fixtures=fixture_files(self.m)
         text=fixtures['events/th_test_events.txt'].decode()
-        self.assertEqual(text.count('spawn_planet = {'),36)
-        self.assertEqual(text.count('[TH TEST] PASS '),36*5+10)
+        self.assertEqual(text.count('spawn_planet = {'),42)
+        self.assertEqual(text.count('[TH TEST] PASS '),42*5+11)
         for name in build.render(self.m):self.assertNotIn('th_test',name)
         parse(text)
 

@@ -8,10 +8,10 @@ import re
 import sys
 import zipfile
 from paradox import read as read_script
-from balance import check_routes
+from balance import check_routes, engineering_targets
 from game_data import audit, check_references
 from economy import check_scenarios, price_table, render_report
-from mechanics import resources, ai_call, ai_weight, auxiliary_triggers
+from mechanics import resources, ai_call, ai_weight, auxiliary_triggers, candidate_condition
 from schema import validate_shape
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -33,21 +33,28 @@ def validate(m):
             raise ValueError("Invalid size proxy")
     if m["defaults"]["min_size_proxy"] > m["defaults"]["max_size_proxy"]:
         raise ValueError("Inverted size range")
-    ids, pairs = set(), set()
+    ids, pairs, variants = set(), set(), {}
+    gaia=m['defaults'].get('gaia')
     for name, c in m["classes"].items():
         if not re.fullmatch(r"pc_[a-z0-9_]+", name) or c["policy"] not in {"engineer", "forbidden", "vanilla"}:
             raise ValueError("Invalid class")
     for t in m["routes"]:
-        if set(t) != {"id", "source", "target", "energy", "days", "technologies", "ai_weight", "features", "reason"}:
+        required={"id", "source", "target", "energy", "days", "technologies", "ai_weight", "features", "reason"}
+        if not required <= set(t) or set(t)-required-{'variant','required_perks'}:
             raise ValueError("Unknown or missing route field")
         pair = t["source"], t["target"]
-        if t["id"] in ids or pair in pairs or not re.fullmatch(r"[a-z0-9_]+", t["id"]):
+        variant=t.get('variant','standard')
+        if t["id"] in ids or variant in variants.get(pair,set()) or not re.fullmatch(r"[a-z0-9_]+", t["id"]):
             raise ValueError("Duplicate or invalid route")
         ids.add(t["id"]); pairs.add(pair)
+        variants.setdefault(pair,set()).add(variant)
         if any(k not in m["classes"] for k in pair):
             raise ValueError("Unknown planet class")
-        if m["classes"][pair[0]]["policy"] != "engineer" or m["classes"][pair[1]]["biosphere"] != "present":
+        is_gaia=bool(gaia and pair[1]==gaia['target'])
+        if m["classes"][pair[0]]["policy"] != "engineer" or (m["classes"][pair[1]]["biosphere"] != "present" and not is_gaia):
             raise ValueError("Forbidden route")
+        if is_gaia and t.get('required_perks') != [gaia['required_perk']]:raise ValueError('Gaia requires World Shaper')
+        if variant=='ready_candidate' and (not is_gaia or pair[0] not in gaia['candidate_sources']):raise ValueError('Invalid candidate variant')
         for k in ("energy", "days"):
             if type(t[k]) is not int or t[k] <= 0:
                 raise ValueError("Nonpositive cost or duration")
@@ -71,12 +78,16 @@ def validate(m):
     for field in ('protected_planet_flags', 'protected_star_flags', 'protected_modifiers','supported_deposits'):
         if not isinstance(d[field], list) or any(not re.fullmatch(r'[a-z0-9_]+', x) for x in d[field]):
             raise ValueError('Invalid protection identifier')
-    targets = set(d['climate_groups'])
+    targets = engineering_targets(m)
     if set(d['candidate_handoffs']) != {k for k,v in m['classes'].items() if v['policy']=='engineer'}:
         raise ValueError('Each engineering source needs a candidate policy')
     for source, spec in m['classes'].items():
         if spec['policy'] == 'engineer' and {b for a,b in pairs if a == source} != targets:
             raise ValueError('Incomplete engineering climate coverage')
+        if spec['policy']=='engineer':
+            for target in targets:
+                expected={'standard','ready_candidate'} if gaia and target==gaia['target'] and source in gaia['candidate_sources'] else {'standard'}
+                if variants[source,target]!=expected:raise ValueError('Incomplete route variant coverage')
     for costs in d['climate_costs'].values():
         if set(costs) != {'energy','days'} or any(type(x) is not int or x <= 0 for x in costs.values()):
             raise ValueError('Invalid climate cost baseline')
@@ -101,6 +112,13 @@ def validate(m):
         if len(factor)!=2 or any(type(x) is not int or x<=0 for x in factor) or factor[0]>factor[1]:
             raise ValueError('Invalid price conversion factor')
     check_scenarios(m)
+    if gaia:
+        table=price_table(m)
+        for t in m['routes']:
+            if t['target']!=gaia['target']:continue
+            if t['energy']!=table[t['id']]['energy']:raise ValueError('Gaia cost differs from staged path')
+            first=gaia['candidate_sources'][t['source']]['days'] if t.get('variant')=='ready_candidate' else min(r['days'] for r in m['routes'] if r['source']==t['source'] and r['target'] in d['climate_groups'])
+            if t['days']!=first+gaia['days']:raise ValueError('Gaia duration differs from staged path')
     return m
 
 
@@ -116,13 +134,16 @@ def render(m):
         tech = "\n".join("        has_technology = " + x for x in t["technologies"])
         handoff = m['defaults']['candidate_handoffs'].get(t['source'])
         gate = ''
-        if handoff and (handoff['targets'] == 'all' or t['target'] in handoff['targets']):
-            candidate = f"from = {{ has_modifier = {handoff['modifier']} }}"
-            if handoff['aquatic_only']:
-                candidate += '\n            OR = { has_aquatic_trait = yes has_trait = trait_robot_aquatic }\n            has_ascension_perk = ap_hydrocentric'
-            if handoff['detox_only']:
-                candidate += '\n            OR = { has_ascension_perk = ap_detox has_country_flag = knights_detox }'
+        gaia=m['defaults'].get('gaia')
+        is_gaia=bool(gaia and t['target']==gaia['target'])
+        if is_gaia and t['source'] in gaia['candidate_sources']:
+            candidate=candidate_condition(handoff)
+            gate=f'\n        AND = {{ {candidate} }}' if t.get('variant')=='ready_candidate' else f'\n        NOT = {{ AND = {{ {candidate} }} }}'
+        elif handoff and (handoff['targets'] == 'all' or t['target'] in handoff['targets']):
+            candidate=candidate_condition(handoff)
             gate = f'\n        NOT = {{ AND = {{ {candidate} }} }}'
+        perks=''.join('\n        has_ascension_perk = '+p for p in t.get('required_perks',[]))
+        cleanup='        detox_hangover = yes\n' if is_gaia and t['source']=='pc_toxic' and t.get('variant')=='ready_candidate' else ''
         ai_visibility='' if m['defaults']['ai_enabled'] else '        is_ai = no\n'
         links.append(f'''# {t['id']}
 terraform_link = {{
@@ -131,7 +152,7 @@ terraform_link = {{
 {resources(m,t,tables)}
     duration = {t['days']}
     potential = {{
-{ai_visibility}        exists = owner{gate}
+{ai_visibility}        exists = owner{perks}{gate}
     }}
     condition = {{
 {tech}
@@ -140,7 +161,7 @@ terraform_link = {{
     }}
 {ai_weight(m,t)}
     effect = {{ from = {{
-        if = {{ limit = {{ has_modifier = {handoff['modifier']} }} remove_modifier = {handoff['modifier']} }}
+{cleanup}        if = {{ limit = {{ has_modifier = {handoff['modifier']} }} remove_modifier = {handoff['modifier']} }}
     }} }}
 }}
 ''')
@@ -196,10 +217,10 @@ supported_version="{m['target_game']}"
     matrix = [f"# Generated transition matrix\n\nModel {m['version']}; target {m['target_game']} ({m['target_checksum']}).\n\n"
               "Base costs only, before country/DLC modifiers. Existing vanilla links are preserved.\n"
               "New branches yield to usable vanilla candidate links; missing Detox/Hydrocentric unlocks retain the expensive fallback.\n"
-              "All new projects use the common protection/size/deposit filter; Wilderness biomass and conservative AI are implemented.\n\n"
-              "| From | To | Energy | Years | Technology |\n|---|---|---:|---:|---|\n"]
+              "All new projects use the common protection/size/deposit filter; Gaia additionally requires World Shaper. Candidate variants have disjoint potential.\n\n"
+              "| From | To | Energy | Years | Technology | Perk | Variant |\n|---|---|---:|---:|---|---|---|\n"]
     for t in m["routes"]:
-        matrix.append(f"| {t['source']} | {t['target']} | {t['energy']} | {t['days']/360:g} | {', '.join(t['technologies'])} |\n")
+        matrix.append(f"| {t['source']} | {t['target']} | {t['energy']} | {t['days']/360:g} | {', '.join(t['technologies'])} | {', '.join(t.get('required_perks', [])) or '—'} | {t.get('variant', 'standard')} |\n")
     matrix.append("\n## Preserved and forbidden classes\n\n| Class | Policy | Reason |\n|---|---|---|\n")
     for k,v in m["classes"].items():
         matrix.append(f"| {k} | {v['policy']} | {v['reason']} |\n")

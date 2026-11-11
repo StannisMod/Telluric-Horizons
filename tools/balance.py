@@ -27,9 +27,21 @@ def climate_edges(defaults):
             for a in groups for b in groups if a != b]
 
 
+def engineering_targets(model):
+    return set(model['defaults']['climate_groups']) | ({model['defaults']['gaia']['target']} if 'gaia' in model['defaults'] else set())
+
+
+def downstream_edges(defaults):
+    edges=climate_edges(defaults)
+    if 'gaia' in defaults:
+        g=defaults['gaia']
+        edges += [dict(source=c,target=g['target'],energy=g['energy'],biomass=g['biomass'],days=g['days']) for c in defaults['climate_groups']]
+    return edges
+
+
 def check_routes(model, climate=None):
-    routes = model['routes']
-    edges = routes + (climate_edges(model['defaults']) if climate is None else climate)
+    routes = [r for r in model['routes'] if r.get('variant')!='ready_candidate']
+    edges = routes + (downstream_edges(model['defaults']) if climate is None else climate)
     for source in {r['source'] for r in routes}:
         for metric in ('energy', 'days'):
             distances = shortest(edges, source, metric)

@@ -1,24 +1,41 @@
 """Exact, deterministic price scenarios; these are calculations, not engine tests."""
 from fractions import Fraction
-from balance import climate_edges, shortest
+from balance import climate_edges, downstream_edges, shortest
 
 
 def price_table(model, hydrocentric=False):
     d = model['defaults']
     discount = Fraction(*d['economy']['hydrocentric_ocean_factor']) if hydrocentric else Fraction(1)
     edges = []
-    for route in model['routes'] + climate_edges(d):
+    normal=[r for r in model['routes'] if r['target'] in d['climate_groups']]
+    for route in normal + climate_edges(d):
         cost = Fraction(route['energy']) * (discount if route['target']=='pc_ocean' else 1)
         edges.append(dict(source=route['source'],target=route['target'],energy=cost))
     distances = {s:shortest(edges,s,'energy') for s in {r['source'] for r in model['routes']}}
     # Integrality is required: never silently round a price up and reintroduce a shortcut.
     result = {}
-    for route in model['routes']:
+    for route in normal:
         price = distances[route['source']][route['target']]
         biomass = price * Fraction(*d['economy']['biomass_factor'])
         if price.denominator != 1 or biomass.denominator != 1:
             raise ValueError('Nonintegral scenario price: ' + route['id'])
         result[route['id']] = dict(energy=int(price),biomass=int(biomass))
+    if 'gaia' in d:
+        g=d['gaia']
+        for route in model['routes']:
+            if route['target']!=g['target']:continue
+            if route.get('variant')=='ready_candidate':
+                profile=g['candidate_sources'][route['source']]
+                factor=discount if hydrocentric else 1
+                energy=Fraction(profile['energy'])*factor+g['energy']
+                biomass=Fraction(profile['biomass'])*factor+g['biomass']
+            else:
+                prices=[result[r['id']] for r in normal if r['source']==route['source']]
+                energy=min(p['energy'] for p in prices)+g['energy']
+                biomass=min(p['biomass'] for p in prices)+g['biomass']
+            if Fraction(energy).denominator!=1 or Fraction(biomass).denominator!=1:
+                raise ValueError('Nonintegral Gaia scenario price')
+            result[route['id']]={'energy':int(energy),'biomass':int(biomass)}
     return result
 
 
@@ -41,15 +58,16 @@ def ai_decision(policy, *, ideal, peaceful, colonies, active_projects, available
 def check_scenarios(model):
     for hydro in (False,True):
         prices = price_table(model,hydro)
-        climate = climate_edges(model['defaults'])
+        climate = downstream_edges(model['defaults'])
         for resource in ('energy','biomass'):
             factor = Fraction(*model['defaults']['economy']['biomass_factor']) if resource=='biomass' else Fraction(1)
             discount = Fraction(*model['defaults']['economy']['hydrocentric_ocean_factor']) if hydro else Fraction(1)
-            edges=[dict(source=r['source'],target=r['target'],energy=Fraction(r['energy'])*factor*(discount if r['target']=='pc_ocean' else 1)) for r in climate]
-            edges += [dict(source=r['source'],target=r['target'],energy=prices[r['id']][resource]) for r in model['routes']]
+            edges=[dict(source=r['source'],target=r['target'],energy=(r['biomass'] if resource=='biomass' and 'biomass' in r else Fraction(r['energy'])*factor)*(discount if r['target']=='pc_ocean' else 1)) for r in climate]
+            regular=[r for r in model['routes'] if r.get('variant')!='ready_candidate']
+            edges += [dict(source=r['source'],target=r['target'],energy=prices[r['id']][resource]) for r in regular]
             for source in {r['source'] for r in model['routes']}:
                 dist=shortest(edges,source,'energy')
-                for route in model['routes']:
+                for route in regular:
                     if route['source']==source and dist[route['target']] < prices[route['id']][resource]:
                         raise ValueError('Scenario shortcut: '+route['id'])
     # Uniform parent-category modifiers scale all paths equally; positive floor only.
@@ -71,5 +89,5 @@ def render_report(model):
     for s in model['defaults']['economy']['income_scenarios']:
         income=s['monthly_energy']
         lines.append(f"| {s['label']} | {income} | {min(prices)/(income*12):.2f} | {max(prices)/(income*12):.2f} |\n")
-    lines.append('\nBoth resources, both Hydrocentric states, and positive parent-category multipliers are checked. Uniform multipliers preserve shortest-path ordering. New costs use terraforming, with the Ocean discount explicitly applied once and propagated through the engineering price closure. Native climate/DLC links remain unchanged. AI thresholds deliberately use undiscounted costs plus a reserve.\n')
+    lines.append('\nBoth resources, both Hydrocentric states, and positive parent-category multipliers are checked. Uniform multipliers preserve shortest-path ordering. New costs use terraforming, with the Ocean discount explicitly applied once and propagated through the engineering price closure. Native climate/DLC links remain unchanged. Gaia includes the native 7,500 energy / 3,500 biomass / 10-year step; ready-candidate variants are separate applicability states, not unconditional shortcuts. Compound parent/Ocean modifier stacking and rounding still require runtime verification. AI thresholds deliberately use undiscounted costs plus a reserve.\n')
     return ''.join(lines).encode()

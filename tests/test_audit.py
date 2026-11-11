@@ -66,9 +66,9 @@ class BalanceTests(unittest.TestCase):
     def test_vanilla_handoffs_cover_only_audited_pairs(self):
         links=parse(build.render(build.load())['telluric_horizons/common/terraform/zz_th_engineering.txt'].decode())
         branches=[v for k,_,v in links if k=='terraform_link']
-        self.assertEqual(len(branches),36)
+        self.assertEqual(len(branches),42)
         gated=[v for v in branches if values(one(v,'potential'),'NOT')]
-        self.assertEqual(len(gated),28)
+        self.assertEqual(len(gated),32)
         frozen=[v for v in branches if one(v,'from')=='pc_frozen' and one(v,'to')=='pc_ocean'][0]
         gate=one(one(one(frozen,'potential'),'NOT'),'AND')
         self.assertEqual(len(values(one(gate,'OR'),'has_aquatic_trait')),1)
@@ -80,7 +80,8 @@ class BalanceTests(unittest.TestCase):
         for k,_,v in links:
             if k=='terraform_link':
                 keys={key for key,_,value in walk(one(v,'effect'))}
-                self.assertEqual(keys,{'from','if','limit','has_modifier','remove_modifier'})
+                self.assertTrue({'from','if','limit','has_modifier','remove_modifier'} <= keys)
+                self.assertTrue(keys <= {'from','if','limit','has_modifier','remove_modifier','detox_hangover'})
 
 
 if __name__=='__main__':unittest.main()

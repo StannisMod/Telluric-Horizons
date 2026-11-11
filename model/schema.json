@@ -311,6 +311,108 @@
           },
           "minItems": 1,
           "uniqueItems": true
+        },
+        "gaia": {
+          "type": "object",
+          "properties": {
+            "target": {
+              "const": "pc_gaia"
+            },
+            "required_perk": {
+              "const": "ap_world_shaper"
+            },
+            "energy": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "biomass": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "days": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "candidate_sources": {
+              "type": "object",
+              "properties": {
+                "pc_frozen": {
+                  "type": "object",
+                  "properties": {
+                    "energy": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "biomass": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "days": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "via": {
+                      "enum": [
+                        "pc_ocean",
+                        "cheapest_climate"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "energy",
+                    "biomass",
+                    "days",
+                    "via"
+                  ],
+                  "additionalProperties": false
+                },
+                "pc_toxic": {
+                  "type": "object",
+                  "properties": {
+                    "energy": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "biomass": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "days": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "via": {
+                      "enum": [
+                        "pc_ocean",
+                        "cheapest_climate"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "energy",
+                    "biomass",
+                    "days",
+                    "via"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "pc_frozen",
+                "pc_toxic"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "target",
+            "required_perk",
+            "energy",
+            "biomass",
+            "days",
+            "candidate_sources"
+          ],
+          "additionalProperties": false
         }
       },
       "required": [
@@ -444,6 +546,21 @@
           "reason": {
             "type": "string",
             "minLength": 1
+          },
+          "variant": {
+            "enum": [
+              "standard",
+              "ready_candidate"
+            ]
+          },
+          "required_perks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^ap_[a-z0-9_]+$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
           }
         },
         "required": [

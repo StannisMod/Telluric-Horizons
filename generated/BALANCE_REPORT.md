@@ -40,6 +40,12 @@ Not a game simulation. Prices precede uniform country modifiers.
 | toxic_to_arctic | 35000 | 17500 | 31250 | 15625 | 50 | 80000 | 40000 |
 | toxic_to_tundra | 35000 | 17500 | 31250 | 15625 | 50 | 80000 | 40000 |
 | toxic_to_alpine | 35000 | 17500 | 31250 | 15625 | 50 | 80000 | 40000 |
+| barren_to_gaia | 21500 | 10500 | 21500 | 10500 | 30 | 53000 | 26000 |
+| barren_cold_to_gaia | 23500 | 11500 | 23250 | 11375 | 34 | 57000 | 28000 |
+| frozen_to_gaia | 17500 | 8500 | 17500 | 8500 | 25 | 45000 | 22000 |
+| toxic_to_gaia | 37500 | 18500 | 33750 | 16625 | 50 | 85000 | 42000 |
+| frozen_candidate_to_gaia | 12500 | 6000 | 11250 | 5375 | 20 | 35000 | 17000 |
+| toxic_candidate_to_gaia | 17500 | 8500 | 15000 | 7250 | 30 | 45000 | 22000 |
 
 ## Affordability reference
 
@@ -47,8 +53,8 @@ Savings time at constant net energy income; no growth, upkeep shocks, opportunit
 
 | Scenario | Net energy/month | Cheapest project savings years | Most expensive project savings years |
 |---|---:|---:|---:|
-| early_reference | 50 | 16.67 | 58.33 |
-| mid_reference | 200 | 4.17 | 14.58 |
-| late_reference | 500 | 1.67 | 5.83 |
+| early_reference | 50 | 16.67 | 62.50 |
+| mid_reference | 200 | 4.17 | 15.62 |
+| late_reference | 500 | 1.67 | 6.25 |
 
-Both resources, both Hydrocentric states, and positive parent-category multipliers are checked. Uniform multipliers preserve shortest-path ordering. New costs use terraforming, with the Ocean discount explicitly applied once and propagated through the engineering price closure. Native climate/DLC links remain unchanged. AI thresholds deliberately use undiscounted costs plus a reserve.
+Both resources, both Hydrocentric states, and positive parent-category multipliers are checked. Uniform multipliers preserve shortest-path ordering. New costs use terraforming, with the Ocean discount explicitly applied once and propagated through the engineering price closure. Native climate/DLC links remain unchanged. Gaia includes the native 7,500 energy / 3,500 biomass / 10-year step; ready-candidate variants are separate applicability states, not unconditional shortcuts. Compound parent/Ocean modifier stacking and rounding still require runtime verification. AI thresholds deliberately use undiscounted costs plus a reserve.

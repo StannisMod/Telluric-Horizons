@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "version": "0.3.0-dev",
+  "version": "0.4.0-dev",
   "target_game": "4.5.4",
   "target_checksum": "1b4f",
   "days_per_year": 360,
@@ -44,7 +44,17 @@
       },
       "pc_toxic": {
         "modifier": "toxic_terraforming_candidate",
-        "targets": "all",
+        "targets": [
+          "pc_desert",
+          "pc_arid",
+          "pc_savannah",
+          "pc_arctic",
+          "pc_tundra",
+          "pc_alpine",
+          "pc_continental",
+          "pc_ocean",
+          "pc_tropical"
+        ],
         "aquatic_only": false,
         "detox_only": true
       },
@@ -108,7 +118,8 @@
       "guardian_toxic_god_system"
     ],
     "protected_modifiers": [
-      "consecrated_world"
+      "consecrated_world",
+      "previously_terraformed_planet"
     ],
     "ai_policy": {
       "cost_multiple": 2,
@@ -223,7 +234,28 @@
     ],
     "reviewed_unprotected_flags": [
       "toxic_terraforming_candidate"
-    ]
+    ],
+    "gaia": {
+      "target": "pc_gaia",
+      "required_perk": "ap_world_shaper",
+      "energy": 7500,
+      "biomass": 3500,
+      "days": 3600,
+      "candidate_sources": {
+        "pc_frozen": {
+          "energy": 5000,
+          "biomass": 2500,
+          "days": 3600,
+          "via": "pc_ocean"
+        },
+        "pc_toxic": {
+          "energy": 10000,
+          "biomass": 5000,
+          "days": 7200,
+          "via": "cheapest_climate"
+        }
+      }
+    }
   },
   "classes": {
     "pc_desert": {
@@ -1247,6 +1279,108 @@
       "ai_weight": 1,
       "features": "native_terraforming_with_preflight",
       "reason": "Atmosphere and biosphere engineering; extra cost for destination conditions"
+    },
+    {
+      "id": "barren_to_gaia",
+      "source": "pc_barren",
+      "target": "pc_gaia",
+      "energy": 21500,
+      "days": 10800,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
+      "reason": "Single project includes full engineering plus native Gaia creation; World Shaper required",
+      "variant": "standard",
+      "required_perks": [
+        "ap_world_shaper"
+      ]
+    },
+    {
+      "id": "barren_cold_to_gaia",
+      "source": "pc_barren_cold",
+      "target": "pc_gaia",
+      "energy": 23500,
+      "days": 12240,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
+      "reason": "Single project includes full engineering plus native Gaia creation; World Shaper required",
+      "variant": "standard",
+      "required_perks": [
+        "ap_world_shaper"
+      ]
+    },
+    {
+      "id": "frozen_to_gaia",
+      "source": "pc_frozen",
+      "target": "pc_gaia",
+      "energy": 17500,
+      "days": 9000,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
+      "reason": "Single project includes full engineering plus native Gaia creation; World Shaper required",
+      "variant": "standard",
+      "required_perks": [
+        "ap_world_shaper"
+      ]
+    },
+    {
+      "id": "toxic_to_gaia",
+      "source": "pc_toxic",
+      "target": "pc_gaia",
+      "energy": 37500,
+      "days": 18000,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
+      "reason": "Single project includes full engineering plus native Gaia creation; World Shaper required",
+      "variant": "standard",
+      "required_perks": [
+        "ap_world_shaper"
+      ]
+    },
+    {
+      "id": "frozen_candidate_to_gaia",
+      "source": "pc_frozen",
+      "target": "pc_gaia",
+      "energy": 12500,
+      "days": 7200,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
+      "reason": "Ready candidate and native DLC unlock: combine candidate restoration and Gaia creation",
+      "variant": "ready_candidate",
+      "required_perks": [
+        "ap_world_shaper"
+      ]
+    },
+    {
+      "id": "toxic_candidate_to_gaia",
+      "source": "pc_toxic",
+      "target": "pc_gaia",
+      "energy": 17500,
+      "days": 10800,
+      "technologies": [
+        "tech_climate_restoration"
+      ],
+      "ai_weight": 1,
+      "features": "native_terraforming_with_preflight",
+      "reason": "Ready candidate and native DLC unlock: combine candidate restoration and Gaia creation",
+      "variant": "ready_candidate",
+      "required_perks": [
+        "ap_world_shaper"
+      ]
     }
   ],
   "localization": {

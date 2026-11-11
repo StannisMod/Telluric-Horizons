@@ -16,7 +16,8 @@ class ModelTests(unittest.TestCase):
     def reject(self, mutate):
         mutate(self.m)
         with self.assertRaises((ValueError,KeyError)): b.validate(self.m)
-    def test_baseline(self): self.assertEqual(len(self.m["routes"]),36)
+    def test_baseline(self): self.assertEqual(len(self.m["routes"]),42)
+    def test_unique_directions(self): self.assertEqual(len({(r["source"],r["target"]) for r in self.m["routes"]}),40)
     def test_duplicate_route(self): self.reject(lambda m:m["routes"].append(copy.deepcopy(m["routes"][0])))
     def test_unknown_schema(self): self.reject(lambda m:m.update(schema_version=99))
     def test_unknown_field(self): self.reject(lambda m:m["routes"][0].update(enrgy=1))
@@ -30,7 +31,7 @@ class ModelTests(unittest.TestCase):
     def test_technology_required(self): self.reject(lambda m:m["routes"][0].update(technologies=[]))
     def test_determinism(self): self.assertEqual(b.render(self.m),b.render(copy.deepcopy(self.m)))
     def test_all_engineered_worlds_reach_all_climates(self):
-        targets={k for k,c in self.m["classes"].items() if c["biosphere"]=="present"}
+        targets=b.engineering_targets(self.m)
         for k,c in self.m["classes"].items():
             if c["policy"]=="engineer": self.assertEqual({t["target"] for t in self.m["routes"] if t["source"]==k},targets)
     def test_candidate_not_required(self):

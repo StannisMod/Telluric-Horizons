@@ -29,11 +29,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 38000 BIOMASS = 19000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_desert GAIA = no ENERGY = 38000 BIOMASS = 19000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 38000 BIOMASS = 19000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_desert GAIA = no ENERGY = 38000 BIOMASS = 19000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }

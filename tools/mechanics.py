@@ -2,6 +2,15 @@
 from economy import price_table, ai_reserves
 
 
+def candidate_condition(handoff):
+    text=f"from = {{ has_modifier = {handoff['modifier']} }}"
+    if handoff['aquatic_only']:
+        text+='\n            OR = { has_aquatic_trait = yes has_trait = trait_robot_aquatic }\n            has_ascension_perk = ap_hydrocentric'
+    if handoff['detox_only']:
+        text+='\n            OR = { has_ascension_perk = ap_detox has_country_flag = knights_detox }'
+    return text
+
+
 def resources(model, route, tables):
     lines=['    resources = { category = terraforming']
     for wilderness,resource in ((False,'energy'),(True,'biomass')):
@@ -19,7 +28,8 @@ def resources(model, route, tables):
 
 def ai_call(model, route):
     reserves=ai_reserves(model,route)
-    return f"th_ai_engineering_budget = {{ TARGET = {route['target']} ENERGY = {reserves['energy']} BIOMASS = {reserves['biomass']} }}"
+    gaia='yes' if route['target']==model['defaults'].get('gaia',{}).get('target') else 'no'
+    return f"th_ai_engineering_budget = {{ TARGET = {route['target']} GAIA = {gaia} ENERGY = {reserves['energy']} BIOMASS = {reserves['biomass']} }}"
 
 
 def ai_weight(model, route):
@@ -44,7 +54,7 @@ th_supported_engineering_deposit = {{
 
 # Scope: country. Native weights and hard conditions share the same budget policy.
 th_ai_engineering_budget = {{
-    ideal_planet_class = $TARGET$
+    OR = {{ ideal_planet_class = $TARGET$ AND = {{ always = $GAIA$ has_ascension_perk = ap_world_shaper }} }}
     is_at_war = no
     num_owned_planets >= {p['min_colonies']}
     NOR = {{ has_deficit = energy has_deficit = minerals has_deficit = food has_deficit = consumer_goods }}

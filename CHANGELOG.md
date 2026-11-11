@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0-dev
+
+Added direct engineering to Gaia with Climate Restoration + World Shaper. Four new directions use aggregate engineering/Gaia costs and duration, with separate ready Frozen/Toxic candidate variants preserving native Hydrocentric/Detox advantages and Detox cleanup. Ordinary candidates are not assigned globally. Added native Gaia/candidate-data audits, coverage/variant/perk tests and a Russian technology guide. Existing scripted restoration worlds remain protected. Gameplay and compound modifier stacking still require runtime tests.
+
 ## 0.3.0-dev
 
 Implemented conservative AI, Wilderness biomass/native queue hooks, explicit property preflight, body-specific megastructure protection and additional story guards. Added expensive candidate fallback when Detox/Hydrocentric is unavailable, consuming candidate markers only on completion. Calculated Hydrocentric price closure prevents indirect climate discounts from penalizing direct projects. Added schema v2/migration, 49 tests, golden output, 307 typed-reference checks, extended numeric-network audit, optional runtime fixtures/AI sampler and conflict scanner. Real EN/RU loading passed; projects, saves and AI observation remain NOT TESTED. No original game/mod files distributed.

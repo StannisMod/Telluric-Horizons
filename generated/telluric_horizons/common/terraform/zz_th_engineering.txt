@@ -30,11 +30,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 46000 BIOMASS = 23000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_alpine GAIA = no ENERGY = 46000 BIOMASS = 23000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 46000 BIOMASS = 23000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_alpine GAIA = no ENERGY = 46000 BIOMASS = 23000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -71,11 +71,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 42000 BIOMASS = 21000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arctic GAIA = no ENERGY = 42000 BIOMASS = 21000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 42000 BIOMASS = 21000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arctic GAIA = no ENERGY = 42000 BIOMASS = 21000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -112,11 +112,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 52000 BIOMASS = 26000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arid GAIA = no ENERGY = 52000 BIOMASS = 26000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 52000 BIOMASS = 26000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arid GAIA = no ENERGY = 52000 BIOMASS = 26000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -153,11 +153,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 52000 BIOMASS = 26000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_continental GAIA = no ENERGY = 52000 BIOMASS = 26000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 52000 BIOMASS = 26000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_continental GAIA = no ENERGY = 52000 BIOMASS = 26000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -194,11 +194,53 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 52000 BIOMASS = 26000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_desert GAIA = no ENERGY = 52000 BIOMASS = 26000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 52000 BIOMASS = 26000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_desert GAIA = no ENERGY = 52000 BIOMASS = 26000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
+}
+# barren_cold_to_gaia
+terraform_link = {
+    from = pc_barren_cold
+    to = pc_gaia
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 23500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 23250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 11500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 11375
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
+    duration = 12240
+    potential = {
+        exists = owner
+        has_ascension_perk = ap_world_shaper
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
+    condition = {
+        has_technology = tech_climate_restoration
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_gaia GAIA = yes ENERGY = 57000 BIOMASS = 28000 } }
+    }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_gaia GAIA = yes ENERGY = 57000 BIOMASS = 28000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -235,11 +277,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 52000 BIOMASS = 26000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_ocean GAIA = no ENERGY = 52000 BIOMASS = 26000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 52000 BIOMASS = 26000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_ocean GAIA = no ENERGY = 52000 BIOMASS = 26000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -276,11 +318,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 52000 BIOMASS = 26000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_savannah GAIA = no ENERGY = 52000 BIOMASS = 26000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 52000 BIOMASS = 26000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_savannah GAIA = no ENERGY = 52000 BIOMASS = 26000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -317,11 +359,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 52000 BIOMASS = 26000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tropical GAIA = no ENERGY = 52000 BIOMASS = 26000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 52000 BIOMASS = 26000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tropical GAIA = no ENERGY = 52000 BIOMASS = 26000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -358,11 +400,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 46000 BIOMASS = 23000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tundra GAIA = no ENERGY = 46000 BIOMASS = 23000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 46000 BIOMASS = 23000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tundra GAIA = no ENERGY = 46000 BIOMASS = 23000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -399,11 +441,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 48000 BIOMASS = 24000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_alpine GAIA = no ENERGY = 48000 BIOMASS = 24000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 48000 BIOMASS = 24000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_alpine GAIA = no ENERGY = 48000 BIOMASS = 24000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -440,11 +482,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 48000 BIOMASS = 24000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arctic GAIA = no ENERGY = 48000 BIOMASS = 24000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 48000 BIOMASS = 24000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arctic GAIA = no ENERGY = 48000 BIOMASS = 24000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -481,11 +523,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 42000 BIOMASS = 21000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arid GAIA = no ENERGY = 42000 BIOMASS = 21000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 42000 BIOMASS = 21000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arid GAIA = no ENERGY = 42000 BIOMASS = 21000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -522,11 +564,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 48000 BIOMASS = 24000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_continental GAIA = no ENERGY = 48000 BIOMASS = 24000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 48000 BIOMASS = 24000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_continental GAIA = no ENERGY = 48000 BIOMASS = 24000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -563,11 +605,53 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 38000 BIOMASS = 19000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_desert GAIA = no ENERGY = 38000 BIOMASS = 19000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 38000 BIOMASS = 19000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_desert GAIA = no ENERGY = 38000 BIOMASS = 19000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
+}
+# barren_to_gaia
+terraform_link = {
+    from = pc_barren
+    to = pc_gaia
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 21500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 21500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 10500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 10500
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
+    duration = 10800
+    potential = {
+        exists = owner
+        has_ascension_perk = ap_world_shaper
+        NOT = { AND = { from = { has_modifier = terraforming_candidate } } }
+    }
+    condition = {
+        has_technology = tech_climate_restoration
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_gaia GAIA = yes ENERGY = 53000 BIOMASS = 26000 } }
+    }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_gaia GAIA = yes ENERGY = 53000 BIOMASS = 26000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -604,11 +688,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 48000 BIOMASS = 24000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_ocean GAIA = no ENERGY = 48000 BIOMASS = 24000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 48000 BIOMASS = 24000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_ocean GAIA = no ENERGY = 48000 BIOMASS = 24000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -645,11 +729,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 42000 BIOMASS = 21000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_savannah GAIA = no ENERGY = 42000 BIOMASS = 21000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 42000 BIOMASS = 21000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_savannah GAIA = no ENERGY = 42000 BIOMASS = 21000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -686,11 +770,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 48000 BIOMASS = 24000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tropical GAIA = no ENERGY = 48000 BIOMASS = 24000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 48000 BIOMASS = 24000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tropical GAIA = no ENERGY = 48000 BIOMASS = 24000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
@@ -727,14 +811,58 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 48000 BIOMASS = 24000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tundra GAIA = no ENERGY = 48000 BIOMASS = 24000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 48000 BIOMASS = 24000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tundra GAIA = no ENERGY = 48000 BIOMASS = 24000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = terraforming_candidate } remove_modifier = terraforming_candidate }
+    } }
+}
+# frozen_candidate_to_gaia
+terraform_link = {
+    from = pc_frozen
+    to = pc_gaia
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 12500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 11250
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 6000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 5375
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
+    duration = 7200
+    potential = {
+        exists = owner
+        has_ascension_perk = ap_world_shaper
+        AND = { from = { has_modifier = frozen_terraforming_candidate }
+            OR = { has_aquatic_trait = yes has_trait = trait_robot_aquatic }
+            has_ascension_perk = ap_hydrocentric }
+    }
+    condition = {
+        has_technology = tech_climate_restoration
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_gaia GAIA = yes ENERGY = 35000 BIOMASS = 17000 } }
+    }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_gaia GAIA = yes ENERGY = 35000 BIOMASS = 17000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
     } }
 }
 # frozen_to_alpine
@@ -767,11 +895,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 34000 BIOMASS = 17000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_alpine GAIA = no ENERGY = 34000 BIOMASS = 17000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 34000 BIOMASS = 17000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_alpine GAIA = no ENERGY = 34000 BIOMASS = 17000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
@@ -807,11 +935,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 30000 BIOMASS = 15000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arctic GAIA = no ENERGY = 30000 BIOMASS = 15000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 30000 BIOMASS = 15000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arctic GAIA = no ENERGY = 30000 BIOMASS = 15000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
@@ -847,11 +975,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 40000 BIOMASS = 20000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arid GAIA = no ENERGY = 40000 BIOMASS = 20000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 40000 BIOMASS = 20000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arid GAIA = no ENERGY = 40000 BIOMASS = 20000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
@@ -887,11 +1015,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 40000 BIOMASS = 20000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_continental GAIA = no ENERGY = 40000 BIOMASS = 20000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 40000 BIOMASS = 20000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_continental GAIA = no ENERGY = 40000 BIOMASS = 20000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
@@ -927,11 +1055,55 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 40000 BIOMASS = 20000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_desert GAIA = no ENERGY = 40000 BIOMASS = 20000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 40000 BIOMASS = 20000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_desert GAIA = no ENERGY = 40000 BIOMASS = 20000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
+    } }
+}
+# frozen_to_gaia
+terraform_link = {
+    from = pc_frozen
+    to = pc_gaia
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 17500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 17500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 8500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 8500
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
+    duration = 9000
+    potential = {
+        exists = owner
+        has_ascension_perk = ap_world_shaper
+        NOT = { AND = { from = { has_modifier = frozen_terraforming_candidate }
+            OR = { has_aquatic_trait = yes has_trait = trait_robot_aquatic }
+            has_ascension_perk = ap_hydrocentric } }
+    }
+    condition = {
+        has_technology = tech_climate_restoration
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_gaia GAIA = yes ENERGY = 45000 BIOMASS = 22000 } }
+    }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_gaia GAIA = yes ENERGY = 45000 BIOMASS = 22000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
@@ -970,11 +1142,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 40000 BIOMASS = 20000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_ocean GAIA = no ENERGY = 40000 BIOMASS = 20000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 40000 BIOMASS = 20000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_ocean GAIA = no ENERGY = 40000 BIOMASS = 20000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
@@ -1010,11 +1182,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 40000 BIOMASS = 20000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_savannah GAIA = no ENERGY = 40000 BIOMASS = 20000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 40000 BIOMASS = 20000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_savannah GAIA = no ENERGY = 40000 BIOMASS = 20000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
@@ -1050,11 +1222,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 40000 BIOMASS = 20000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tropical GAIA = no ENERGY = 40000 BIOMASS = 20000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 40000 BIOMASS = 20000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tropical GAIA = no ENERGY = 40000 BIOMASS = 20000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
@@ -1090,14 +1262,58 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 34000 BIOMASS = 17000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tundra GAIA = no ENERGY = 34000 BIOMASS = 17000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 34000 BIOMASS = 17000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tundra GAIA = no ENERGY = 34000 BIOMASS = 17000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = frozen_terraforming_candidate } remove_modifier = frozen_terraforming_candidate }
+    } }
+}
+# toxic_candidate_to_gaia
+terraform_link = {
+    from = pc_toxic
+    to = pc_gaia
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 17500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 15000
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 8500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 7250
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
+    duration = 10800
+    potential = {
+        exists = owner
+        has_ascension_perk = ap_world_shaper
+        AND = { from = { has_modifier = toxic_terraforming_candidate }
+            OR = { has_ascension_perk = ap_detox has_country_flag = knights_detox } }
+    }
+    condition = {
+        has_technology = tech_climate_restoration
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_gaia GAIA = yes ENERGY = 45000 BIOMASS = 22000 } }
+    }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_gaia GAIA = yes ENERGY = 45000 BIOMASS = 22000 } }
+    }
+    effect = { from = {
+        detox_hangover = yes
+        if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
     } }
 }
 # toxic_to_alpine
@@ -1132,11 +1348,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 80000 BIOMASS = 40000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_alpine GAIA = no ENERGY = 80000 BIOMASS = 40000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_alpine ENERGY = 80000 BIOMASS = 40000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_alpine GAIA = no ENERGY = 80000 BIOMASS = 40000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
@@ -1174,11 +1390,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 80000 BIOMASS = 40000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arctic GAIA = no ENERGY = 80000 BIOMASS = 40000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arctic ENERGY = 80000 BIOMASS = 40000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arctic GAIA = no ENERGY = 80000 BIOMASS = 40000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
@@ -1216,11 +1432,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 74000 BIOMASS = 37000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_arid GAIA = no ENERGY = 74000 BIOMASS = 37000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arid ENERGY = 74000 BIOMASS = 37000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_arid GAIA = no ENERGY = 74000 BIOMASS = 37000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
@@ -1258,11 +1474,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 80000 BIOMASS = 40000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_continental GAIA = no ENERGY = 80000 BIOMASS = 40000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_continental ENERGY = 80000 BIOMASS = 40000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_continental GAIA = no ENERGY = 80000 BIOMASS = 40000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
@@ -1300,11 +1516,54 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 70000 BIOMASS = 35000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_desert GAIA = no ENERGY = 70000 BIOMASS = 35000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_desert ENERGY = 70000 BIOMASS = 35000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_desert GAIA = no ENERGY = 70000 BIOMASS = 35000 } }
+    }
+    effect = { from = {
+        if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
+    } }
+}
+# toxic_to_gaia
+terraform_link = {
+    from = pc_toxic
+    to = pc_gaia
+    resources = { category = terraforming
+        cost = {
+            trigger = { is_wilderness_empire = no NOT = { has_ascension_perk = ap_hydrocentric } }
+            energy = 37500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = no has_ascension_perk = ap_hydrocentric }
+            energy = 33750
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes NOT = { has_ascension_perk = ap_hydrocentric } }
+            biomass = 18500
+        }
+        cost = {
+            trigger = { is_wilderness_empire = yes has_ascension_perk = ap_hydrocentric }
+            biomass = 16625
+        }
+    }
+    inline_script = { script = terraform/wilderness_biomass }
+    duration = 18000
+    potential = {
+        exists = owner
+        has_ascension_perk = ap_world_shaper
+        NOT = { AND = { from = { has_modifier = toxic_terraforming_candidate }
+            OR = { has_ascension_perk = ap_detox has_country_flag = knights_detox } } }
+    }
+    condition = {
+        has_technology = tech_climate_restoration
+        from = { th_eligible_world = yes }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_gaia GAIA = yes ENERGY = 85000 BIOMASS = 42000 } }
+    }
+    ai_weight = {
+        weight = 0
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_gaia GAIA = yes ENERGY = 85000 BIOMASS = 42000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
@@ -1342,11 +1601,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 80000 BIOMASS = 40000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_ocean GAIA = no ENERGY = 80000 BIOMASS = 40000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_ocean ENERGY = 80000 BIOMASS = 40000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_ocean GAIA = no ENERGY = 80000 BIOMASS = 40000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
@@ -1384,11 +1643,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 74000 BIOMASS = 37000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_savannah GAIA = no ENERGY = 74000 BIOMASS = 37000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_savannah ENERGY = 74000 BIOMASS = 37000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_savannah GAIA = no ENERGY = 74000 BIOMASS = 37000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
@@ -1426,11 +1685,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 80000 BIOMASS = 40000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tropical GAIA = no ENERGY = 80000 BIOMASS = 40000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tropical ENERGY = 80000 BIOMASS = 40000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tropical GAIA = no ENERGY = 80000 BIOMASS = 40000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }
@@ -1468,11 +1727,11 @@ terraform_link = {
     condition = {
         has_technology = tech_climate_restoration
         from = { th_eligible_world = yes }
-        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 80000 BIOMASS = 40000 } }
+        OR = { is_ai = no th_ai_engineering_budget = { TARGET = pc_tundra GAIA = no ENERGY = 80000 BIOMASS = 40000 } }
     }
     ai_weight = {
         weight = 0
-        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tundra ENERGY = 80000 BIOMASS = 40000 } }
+        modifier = { weight = 1 is_ai = yes th_ai_engineering_budget = { TARGET = pc_tundra GAIA = no ENERGY = 80000 BIOMASS = 40000 } }
     }
     effect = { from = {
         if = { limit = { has_modifier = toxic_terraforming_candidate } remove_modifier = toxic_terraforming_candidate }

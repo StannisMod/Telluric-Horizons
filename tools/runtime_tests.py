@@ -6,6 +6,7 @@ fixture and must never be enabled on a valued save. No original game files neede
 import argparse
 from pathlib import Path
 from build import load
+from balance import engineering_targets
 
 
 def assertion(condition, label, should_pass=True):
@@ -76,10 +77,11 @@ def fixture_files(model, mode='eligibility'):
 }}''')
     bodies='\n'.join(fixtures)
     completion=[]
-    for target in sorted(model['defaults']['climate_groups']):
+    for target in sorted(engineering_targets(model)):
         completion.append(f'''if = {{ limit = {{ has_planet_flag = th_test_target_{target} }}
 {assertion(f'is_planet_class = {target}', 'completed '+target)}
 }}''')
+    gaia_perk='add_ascension_perk = '+model['defaults']['gaia']['required_perk'] if 'gaia' in model['defaults'] else ''
     events=f'''# AUTHORED TEST FIXTURE. DISPOSABLE NEW GAME ONLY. NOT RELEASE CONTENT.
 namespace = th_test
 country_event = {{
@@ -98,6 +100,7 @@ country_event = {{
         set_country_flag = th_test_setup
         give_technology = {{ tech = tech_terrestrial_sculpting message = no }}
         give_technology = {{ tech = tech_climate_restoration message = no }}
+        {gaia_perk}
         capital_scope = {{ solar_system = {{
 {bodies}
         }} }}

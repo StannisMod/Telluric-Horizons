@@ -46,21 +46,23 @@ def audit(game, model):
         candidates = [r for r in actual if (r['source'],r['target'])==pair]
         if not any((r['energy'],r['days'])==cost for r in candidates):
             raise ValueError('Vanilla climate baseline changed: ' + str(pair))
-    check_routes(model, climate_edges(model['defaults']))
+    check_routes(model)
     # Relax all story/DLC gates on the numeric downstream network. A pass in this
     # superset proves no cheaper scalar-energy route in any gated subset.
     from balance import shortest
     sources={r['source'] for r in model['routes']}
-    downstream=[r for r in links if r['source'] not in sources and r['energy'] is not None and r['days'] is not None]
+    restoration='previously_terraformed_planet'
+    downstream=[r for r in links if r['source'] not in sources and r['energy'] is not None and r['days'] is not None and restoration not in r['modifiers']]
     for hydro in (False,True):
         price=price_table(model,hydro)
         discount=Fraction(*model['defaults']['economy']['hydrocentric_ocean_factor']) if hydro else 1
         extended=[dict(r,energy=Fraction(r['energy'])*(discount if r['target']=='pc_ocean' else 1)) for r in downstream]
-        extended += [dict(r,energy=price[r['id']]['energy']) for r in model['routes']]
+        extended += [dict(r,energy=price[r['id']]['energy']) for r in model['routes'] if r.get('variant')!='ready_candidate']
         for source in sources:
             for metric in ('energy','days'):
                 distances=shortest(extended,source,metric)
                 for route in model['routes']:
+                    if route.get('variant')=='ready_candidate':continue
                     expected_price=price[route['id']]['energy'] if metric=='energy' else route['days']
                     if route['source']==source and distances[route['target']]<expected_price:
                         raise ValueError('Extended-network shortcut: '+route['id']+' '+metric)
@@ -83,6 +85,15 @@ def audit(game, model):
                 detox=('ap_detox' in c['unlock_perks'] or 'knights_detox' in c['unlock_flags'])
                 if handoff['detox_only'] != detox:raise ValueError('Detox handoff contract changed')
             overlaps += 1
+    if 'gaia' in model['defaults']:
+        g=model['defaults']['gaia']
+        for climate in climates:
+            if not any(r['source']==climate and r['target']==g['target'] and (r['energy'],r['biomass'],r['days'])==(g['energy'],g['biomass'],g['days']) for r in links):
+                raise ValueError('Native Gaia baseline changed: '+climate)
+        for source,profile in g['candidate_sources'].items():
+            eligible=[r for r in links if r['source']==source and r['target'] in climates and (profile['via']=='cheapest_climate' or r['target']==profile['via'])]
+            if not eligible or (min(r['energy'] for r in eligible),min(r['biomass'] for r in eligible),min(r['days'] for r in eligible))!=(profile['energy'],profile['biomass'],profile['days']):
+                raise ValueError('Candidate Gaia staging baseline changed: '+source)
     hashes = {p.relative_to(game).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
               for p in sorted((game/'common/terraform').glob('*.txt'))}
     pairs = Counter((r['source'],r['target']) for r in links)
@@ -132,6 +143,8 @@ def check_references(game, model, files):
     effects=definitions(game,'scripted_effects')
     if not {'global_biomass_spender','unqueue_biomass_effect'} <= effects.keys():
         raise ValueError('Native biomass queue effects missing')
+    if 'gaia' in model['defaults'] and 'detox_hangover' not in effects:
+        raise ValueError('Native Detox completion helper missing')
     # Public metadata expresses this exact category modifier; a drift must not
     # silently result in a manual discount differing from the native perk.
     perks=definitions(game,'ascension_perks')

@@ -48,6 +48,7 @@ th_eligible_world = {
     NOT = { has_planet_flag = machine_world_3 }
     NOT = { has_planet_flag = machine_world_4 }
     NOT = { has_modifier = consecrated_world }
+    NOT = { has_modifier = previously_terraformed_planet }
     solar_system = { NOR = {
             has_star_flag = precursor_system
             has_star_flag = lcluster
@@ -132,7 +133,7 @@ th_supported_engineering_deposit = {
 
 # Scope: country. Native weights and hard conditions share the same budget policy.
 th_ai_engineering_budget = {
-    ideal_planet_class = $TARGET$
+    OR = { ideal_planet_class = $TARGET$ AND = { always = $GAIA$ has_ascension_perk = ap_world_shaper } }
     is_at_war = no
     num_owned_planets >= 3
     NOR = { has_deficit = energy has_deficit = minerals has_deficit = food has_deficit = consumer_goods }
